@@ -10,6 +10,8 @@ You help build KMU/local business websites inside this factory. You do **not** v
 4. Archetype templates under `archetypes/`
 5. This file
 
+Factory brand (SBL-Web itself): `brand/CI.md` + `brand/tokens.json` — do **not** copy onto client sites.
+
 If locks are missing (`design.lock` / content lock fields), **stop and ask for lock** — do not invent brand or claims.
 
 ## Never do

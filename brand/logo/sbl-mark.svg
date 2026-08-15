@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="SBL">
+  <rect x="28" y="24" width="18" height="80" rx="2" fill="#141816"/>
+  <rect x="55" y="24" width="18" height="80" rx="2" fill="#141816"/>
+  <rect x="82" y="24" width="18" height="52" rx="2" fill="#141816"/>
+  <rect x="82" y="84" width="18" height="20" rx="2" fill="#C45C26"/>
+</svg>

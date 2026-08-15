@@ -1,6 +1,12 @@
+<p align="center">
+  <img src="brand/logo/sbl-wordmark.svg" alt="SBL-Web" width="320" />
+</p>
+
 # SBL-Web
 
 Website-Factory für KMU und lokale Unternehmen: strukturierte Pipeline statt Vibe Coding, Anti-AI-Slop-Gates, Docker-Hosting.
+
+**Marke / CI:** [`brand/CI.md`](brand/CI.md) · Logo: [`brand/logo/`](brand/logo/)
 
 ## Quick start (Demo)
 
@@ -34,6 +40,7 @@ Deep Research: [docs/research/kmu-website-pipeline.md](docs/research/kmu-website
 
 | Artefakt | Pfad |
 |----------|------|
+| **Factory-CI / Logo** | `brand/CI.md`, `brand/logo/` |
 | Pipeline-Research | `docs/research/kmu-website-pipeline.md` |
 | **Pflichtfragen-Katalog** | `docs/research/pflichtfragen-katalog.md` + `pflichtfragen.catalog.yaml` |
 | Fragebogen-Schema | `docs/schemas/questionnaire.schema.json` |
