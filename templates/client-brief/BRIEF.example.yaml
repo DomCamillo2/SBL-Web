@@ -82,17 +82,51 @@ services:
 
 contact:
   email: hallo@example.com
-  phone: "+49 7071 000000"
+  phone: "+49 7071 123456"
   address: Musterstraße 1, 72070 Tübingen
   hours: "Mo–Fr 09–17 Uhr"
   cta_label: Prozess kostenlos prüfen lassen
+  response_time_promise: Wir melden uns innerhalb eines Werktags.
+  maps_url: https://maps.google.com/?q=T%C3%BCbingen
 
 assets:
   logo: ./assets/logo.svg
-  photos:
-    - ./assets/hero-workspace.jpg
+  og_image: /og-default.svg
+  photos: []
   missing:
     - Teamfotos (optional; sonst Erfahrungskontext nutzen)
+
+launch:
+  custom_404: true
+  cta_above_fold: true
+  internal_links: true
+  thank_you_page: true
+  breadcrumbs: true
+  case_studies:
+    enabled: false
+    count_available: 0
+  faq_required: true
+  faq_min_items: 5
+  sticky_mobile_cta: true
+  robots_txt: true
+  unique_titles: true
+  meta_descriptions: true
+  social_share_image: true
+  maps_directions: true
+  reviews:
+    enabled: false
+    permission_confirmed: false
+  alt_text_policy: required
+  local_schema: true
+  schema_type: ProfessionalService
+  privacy_page: true
+  analytics:
+    enabled: false
+    provider: none
+    consent_required: true
+  team_photo:
+    available: false
+    skip_reason: Noch kein freigegebenes Teamfoto
 
 legal:
   impressum_ready: false
@@ -102,10 +136,12 @@ legal:
 hosting:
   staging_subdomain: beispiel-automation.staging.sbl-web.local
   production_domain: example.com
+  site_url: https://example.com
   need_forms: true
   need_cms: false
 
 locks:
   design_locked_at: null
   content_locked_at: null
+  launch_checked_at: null
   approved_by: null

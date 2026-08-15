@@ -31,6 +31,8 @@ Deep Research: [docs/research/kmu-website-pipeline.md](docs/research/kmu-website
 | Pipeline-Research | `docs/research/kmu-website-pipeline.md` |
 | Anti-Slop CLI | `packages/anti-slop` (`pnpm anti-slop:demo`) |
 | Launch-Fragen (20) | `templates/client-brief/INTAKE-QUESTIONS.md` |
+| Legal DE (Branchen) | `docs/research/legal-de-branchen.md` |
+| Legal-Intake | `templates/client-brief/LEGAL-INTAKE.md` |
 | Launch-Gate | `docs/research/launch-checklist.md` |
 | Archetyp service-local-b2b | `archetypes/service-local-b2b` |
 | Demo-Client | `clients/beispiel-automation` |

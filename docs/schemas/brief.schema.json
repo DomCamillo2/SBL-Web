@@ -260,8 +260,54 @@
         "impressum_ready": { "type": "boolean" },
         "privacy_ready": { "type": "boolean" },
         "owner": { "type": "string" },
-        "vat_id": { "type": "string" },
-        "registry": { "type": "string" }
+        "vat_id": { "type": "string", "description": "USt-IdNr. (DE…), not tax number" },
+        "registry": { "type": "string", "description": "e.g. Amtsgericht … HRB …" },
+        "legal_form": { "type": "string" },
+        "supervisory_authority": {
+          "type": "string",
+          "description": "Required for licensed trades (GastG, §34c GewO, …)"
+        },
+        "vsbg_employee_count_over_10": { "type": "boolean" },
+        "vsbg_willing_to_participate": { "type": "boolean" },
+        "vsbg_statement": { "type": "string" },
+        "odr_link_removed": {
+          "type": "boolean",
+          "description": "Must be true — EU ODR/OS platform retired 2025-07-20"
+        },
+        "bfsg_in_scope": {
+          "type": "boolean",
+          "description": "Accessibility Act likely applies (e-commerce / online contract)"
+        },
+        "bfsg_micro_enterprise_exemption": { "type": "boolean" },
+        "accessibility_statement_url": { "type": "string" },
+        "client_approved_texts": {
+          "type": "boolean",
+          "description": "Client/lawyer approved final Impressum + Privacy copy"
+        },
+        "disclaimer": {
+          "type": "string",
+          "default": "Factory drafts are not legal advice."
+        }
+      }
+    },
+    "regulated_profession": {
+      "type": "object",
+      "description": "§ 5 Abs. 1 Nr. 5 DDG + chamber rules (doctors, lawyers, health crafts, …)",
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "profession_title": { "type": "string" },
+        "awarding_state": { "type": "string", "default": "Deutschland" },
+        "chamber_name": { "type": "string" },
+        "chamber_address": { "type": "string" },
+        "chamber_url": { "type": "string" },
+        "professional_rules_label": { "type": "string" },
+        "professional_rules_url": { "type": "string" },
+        "kv_name": { "type": "string", "description": "Kassenärztliche Vereinigung if applicable" },
+        "kv_url": { "type": "string" },
+        "hwg_review_required": {
+          "type": "boolean",
+          "description": "Heilmittelwerbegesetz review for medical marketing copy"
+        }
       }
     },
     "hosting": {

@@ -422,6 +422,86 @@ export async function run(clientDir) {
     );
   }
 
+  // --- Legal DE (research-backed lint; not legal advice) ---
+  if (await exists(siteSrc)) {
+    const pageFiles = await collectFiles(siteSrc, [".astro", ".html", ".md", ".js"]);
+    const legalBlob = (await Promise.all(pageFiles.map((f) => fs.readFile(f, "utf8")))).join(
+      "\n",
+    );
+    if (/§\s*5\s*TMG|Angaben gemäß § 5 TMG|Telemediengesetz/i.test(legalBlob)) {
+      push(
+        "error",
+        "LG01",
+        "Replace TMG imprint references with DDG (TMG repealed 2024-05-14)",
+        siteSrc,
+      );
+    }
+    if (/§\s*25\s*TTDSG|gemäß TTDSG/i.test(legalBlob) && !/TDDDG|historisch|früher/i.test(legalBlob)) {
+      push(
+        "warn",
+        "LG02",
+        "TTDSG renamed to TDDDG (2024-05) — update privacy copy fundstellen",
+        siteSrc,
+      );
+    }
+    if (/ec\.europa\.eu\/odr|online-streitbeilegung|OS-Plattform/i.test(legalBlob)) {
+      push(
+        "error",
+        "LG03",
+        "Remove EU ODR/OS platform links (retired 2025-07-20)",
+        siteSrc,
+      );
+    }
+  }
+
+  if (brief?.legal?.odr_link_removed === false) {
+    push("error", "LG03", "legal.odr_link_removed must be true before launch", briefPath);
+  }
+
+  if (brief?.regulated_profession?.enabled) {
+    const reg = brief.regulated_profession;
+    for (const field of ["profession_title", "chamber_name", "awarding_state"]) {
+      if (!reg[field]) {
+        push(
+          "error",
+          "LG04",
+          `Regulated profession missing ${field} (DDG § 5 Abs. 1 Nr. 5)`,
+          briefPath,
+        );
+      }
+    }
+    if (reg.hwg_review_required && brief.legal?.client_approved_texts !== true) {
+      push(
+        "error",
+        "LG05",
+        "HWG review required — set legal.client_approved_texts after lawyer/client sign-off",
+        briefPath,
+      );
+    }
+  }
+
+  if (brief?.legal?.bfsg_in_scope === true && !brief.legal.accessibility_statement_url) {
+    push(
+      "warn",
+      "LG06",
+      "BFSG in scope — add accessibility statement URL (or document exemption)",
+      briefPath,
+    );
+  }
+
+  if (
+    brief?.hosting?.production_domain &&
+    brief?.legal?.client_approved_texts !== true &&
+    brief?.locks?.launch_checked_at
+  ) {
+    push(
+      "warn",
+      "LG07",
+      "Production intended but legal.client_approved_texts is not true",
+      briefPath,
+    );
+  }
+
   const errors = issues.filter((i) => i.severity === "error").length;
   const warnings = issues.filter((i) => i.severity === "warn").length;
   const score = Math.min(100, errors * 18 + warnings * 6);

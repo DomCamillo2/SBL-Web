@@ -11,11 +11,14 @@ const { content, brief, brand, layout } = createPageShell({
   includeSchema: false,
   navLinks: [{ href: "/", label: "Start" }],
 });
+
+const legal = brief?.legal ?? {};
+const reg = brief?.regulated_profession ?? {};
 ---
 
 <BaseLayout
   title={`Impressum${content.seo_defaults.title_suffix}`}
-  description="Impressum"
+  description="Impressum / Anbieterkennzeichnung"
   {...layout}
 >
   <section class="sbl-section">
@@ -23,12 +26,76 @@ const { content, brief, brand, layout } = createPageShell({
       <Breadcrumbs items={[{ label: "Start", href: "/" }, { label: "Impressum" }]} />
       <h1>Impressum</h1>
       <p><strong>{brief?.business?.legal_name ?? brand}</strong></p>
+      {legal.legal_form && <p>Rechtsform: {legal.legal_form}</p>}
+      <p>Vertreten durch: {legal.owner ?? "—"}</p>
       <p>{brief?.contact?.address}</p>
-      <p>E-Mail: {brief?.contact?.email}<br />Telefon: {brief?.contact?.phone}</p>
-      <p>Vertreten durch: {brief?.legal?.owner ?? "—"}</p>
       <p>
-        Dies ist eine Demo-Seite der SBL-Web Factory. Angaben sind beispielhaft und nicht rechtsverbindlich.
+        E-Mail: {brief?.contact?.email}<br />
+        Telefon: {brief?.contact?.phone}
       </p>
+      {legal.registry && <p>Register: {legal.registry}</p>}
+      {legal.vat_id && <p>USt-IdNr.: {legal.vat_id}</p>}
+      {legal.supervisory_authority && (
+        <p>Aufsichtsbehörde: {legal.supervisory_authority}</p>
+      )}
+
+      {reg.enabled && (
+        <div>
+          <h2>Berufsangaben</h2>
+          {reg.profession_title && <p>Berufsbezeichnung: {reg.profession_title}</p>}
+          {reg.awarding_state && <p>Verliehen in: {reg.awarding_state}</p>}
+          {reg.chamber_name && (
+            <p>
+              Kammer: {reg.chamber_name}
+              {reg.chamber_address ? ` — ${reg.chamber_address}` : ""}
+              {reg.chamber_url && (
+                <>
+                  {" "}
+                  <a class="sbl-link-underline" href={reg.chamber_url}>{reg.chamber_url}</a>
+                </>
+              )}
+            </p>
+          )}
+          {reg.kv_name && (
+            <p>
+              {reg.kv_name}
+              {reg.kv_url && (
+                <>
+                  {" "}
+                  <a class="sbl-link-underline" href={reg.kv_url}>{reg.kv_url}</a>
+                </>
+              )}
+            </p>
+          )}
+          {reg.professional_rules_label && (
+            <p>
+              Berufsrecht:{" "}
+              {reg.professional_rules_url ? (
+                <a class="sbl-link-underline" href={reg.professional_rules_url}>
+                  {reg.professional_rules_label}
+                </a>
+              ) : (
+                reg.professional_rules_label
+              )}
+            </p>
+          )}
+        </div>
+      )}
+
+      {legal.vsbg_statement && (
+        <div>
+          <h2>Streitbeilegung</h2>
+          <p>{legal.vsbg_statement}</p>
+        </div>
+      )}
+
+      <p>
+        Angaben gemäß Anbieterkennzeichnung nach dem Digitale-Dienste-Gesetz (DDG).
+        Dies ist eine Demo-Seite der SBL-Web Factory — keine Rechtsberatung.
+      </p>
+      {!legal.client_approved_texts && (
+        <p class="sbl-meta">Rechtstexte noch nicht vom Mandanten freigegeben.</p>
+      )}
     </div>
   </section>
 </BaseLayout>

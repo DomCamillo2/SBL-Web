@@ -30,6 +30,8 @@ If locks are missing (`design.lock` / content lock fields), **stop and ask for l
 - Prefer real photography / place / product context
 - Prefer `@sbl-web/ui` primitives (`DefinitionList`, `AsymmetricSplit`, `Reveal`) over equal icon-card grids
 - Collect the 20 launch intake answers into `BRIEF.yaml` → `launch` (see `templates/client-brief/INTAKE-QUESTIONS.md`)
+- Collect legal/branch intake into `BRIEF.yaml` → `legal` + `regulated_profession` (see `templates/client-brief/LEGAL-INTAKE.md`)
+- Never invent Impressum data, medical claims, or reviews; never cite repealed TMG as current law
 - Keep German copy concrete and local (city, region, real offer)
 - Respect `prefers-reduced-motion`
 - Style `::selection` and `:focus-visible`

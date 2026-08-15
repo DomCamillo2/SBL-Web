@@ -111,6 +111,23 @@ legal:
   impressum_ready: true
   privacy_ready: true
   owner: Max Mustermann
+  legal_form: UG (haftungsbeschränkt)
+  vat_id: ""
+  registry: ""
+  vsbg_employee_count_over_10: false
+  vsbg_willing_to_participate: false
+  vsbg_statement: >
+    Wir sind zur Teilnahme an einem Streitbeilegungsverfahren vor einer
+    Verbraucherschlichtungsstelle nicht verpflichtet und nicht bereit.
+  odr_link_removed: true
+  bfsg_in_scope: false
+  bfsg_micro_enterprise_exemption: true
+  client_approved_texts: false
+  disclaimer: Demo-Angaben — keine Rechtsberatung.
+
+regulated_profession:
+  enabled: false
+  hwg_review_required: false
 
 hosting:
   staging_subdomain: beispiel-automation.staging.sbl-web.local
