@@ -1,6 +1,7 @@
 ---
 import SiteHeader from "./SiteHeader.astro";
 import SiteFooter from "./SiteFooter.astro";
+import StickyMobileCta from "@sbl-web/ui/components/StickyMobileCta.astro";
 import "@sbl-web/ui/css/ui.css";
 
 const {
@@ -12,6 +13,13 @@ const {
   navLinks = [],
   email,
   phone,
+  canonicalUrl,
+  ogImage,
+  ogType = "website",
+  jsonLd,
+  stickyCta,
+  analytics,
+  noIndex = false,
 } = Astro.props;
 
 const style = Object.entries(cssVars)
@@ -26,9 +34,31 @@ const style = Object.entries(cssVars)
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
+    {noIndex && <meta name="robots" content="noindex,nofollow" />}
+    {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+    {description && <meta property="og:title" content={title} />}
+    {description && <meta property="og:description" content={description} />}
+    <meta property="og:type" content={ogType} />
+    {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    {ogImage && <meta name="twitter:image" content={ogImage} />}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     {fontsHref && <link rel="stylesheet" href={fontsHref} />}
+    {jsonLd && (
+      <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    )}
+    {analytics?.enabled && analytics.provider === "plausible" && analytics.measurement_id && (
+      <script
+        defer
+        data-domain={analytics.measurement_id}
+        src="https://plausible.io/js/script.js"
+      />
+    )}
+    {analytics?.enabled && analytics.provider === "google" && analytics.measurement_id && analytics.consent_required !== true && (
+      <script async src={`https://www.googletagmanager.com/gtag/js?id=${analytics.measurement_id}`}></script>
+    )}
     <slot name="head" />
   </head>
   <body style={style}>
@@ -37,6 +67,9 @@ const style = Object.entries(cssVars)
       <slot />
     </main>
     <SiteFooter brand={brand} email={email} phone={phone} />
+    {stickyCta?.href && stickyCta?.label && (
+      <StickyMobileCta label={stickyCta.label} href={stickyCta.href} phone={phone} />
+    )}
     <script>
       import "@sbl-web/ui/js/reveal.js";
     </script>

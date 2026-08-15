@@ -72,3 +72,47 @@ export function googleFontsHref(tokens) {
     .join("&");
   return `https://fonts.googleapis.com/css2?${q}&display=swap`;
 }
+
+export function buildLocalBusinessSchema(brief, content) {
+  if (!brief) return null;
+  const launch = brief.launch ?? {};
+  if (launch.local_schema === false) return null;
+
+  const siteUrl = brief.hosting?.site_url || brief.hosting?.production_domain;
+  const url = siteUrl
+    ? siteUrl.startsWith("http")
+      ? siteUrl
+      : `https://${siteUrl}`
+    : undefined;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": launch.schema_type || "ProfessionalService",
+    name: brief.business?.name || content?.seo_defaults?.site_name,
+    description: content?.seo_defaults?.default_description,
+    url,
+    email: brief.contact?.email,
+    telephone: brief.contact?.phone,
+    image: brief.assets?.og_image || brief.assets?.team_photo || brief.assets?.logo,
+    address: brief.contact?.address
+      ? {
+          "@type": "PostalAddress",
+          streetAddress: brief.contact.address,
+          addressLocality: brief.business?.city,
+          addressRegion: brief.business?.region,
+          addressCountry: "DE",
+        }
+      : undefined,
+    areaServed: brief.business?.region,
+    openingHours: brief.contact?.hours,
+    hasMap: brief.contact?.maps_url,
+  };
+}
+
+export function absoluteUrl(brief, path = "/") {
+  const base = brief?.hosting?.site_url || brief?.hosting?.production_domain;
+  if (!base) return path;
+  const origin = base.startsWith("http") ? base.replace(/\/$/, "") : `https://${base.replace(/\/$/, "")}`;
+  if (!path || path === "/") return `${origin}/`;
+  return `${origin}${path.startsWith("/") ? path : `/${path}`}`;
+}

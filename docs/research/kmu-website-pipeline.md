@@ -266,12 +266,15 @@ Agent-Instructions (im Repo):
 | Gate | Check |
 |------|--------|
 | Anti-Slop | Fonts, Hue, Hero-Budget, Card-Spam, Copy-Banlist |
-| Content | Keine Platzhalter (`Lorem`, `Firma XY`, `0000`) |
+| **Launch Checklist (20)** | 404, CTA, Danke, FAQ, robots, Titles/Meta, OG, Maps, Schema, Sticky CTA, Analytics-Consent, … — siehe [`launch-checklist.md`](./launch-checklist.md) und [`INTAKE-QUESTIONS.md`](../../templates/client-brief/INTAKE-QUESTIONS.md) |
+| Content | Keine Platzhalter (`Lorem`, `Firma XY`) |
 | A11y | Kontrast, Fokus, Alt-Texte, Reduced Motion |
 | Perf | LCP-Bilder, Fonts subset, kein unnötiges JS |
 | SEO | Title/Description, OG, Sitemap, Schema.org LocalBusiness |
 | Legal | Impressum/Datenschutz vorhanden und verlinkt |
 | Visual | Desktop + Mobile Screenshot-Diff gegen Mockup |
+
+**Intake:** Die 20 Launch-Aspekte werden als Fragen im Brief (`launch:`) erfasst — nicht erst beim Go-Live improvisiert.
 
 ### Phase 5 — Docker Hosting
 

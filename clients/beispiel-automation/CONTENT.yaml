@@ -107,7 +107,7 @@ pages:
         job: Menschen hinter dem Angebot zeigen
         eyebrow: Über uns
         headline: Wer hinter dem Angebot steckt
-        support: Drei Schwerpunkte — Prozesse verstehen, Workflows bauen, Nutzung absichern.
+        support: Drei Schwerpunkte — Prozesse verstehen, Workflows bauen, Nutzung absichern. Echtes Teamfoto folgt, sobald freigegeben.
         items:
           - title: AI Adoption & Workflow Automation
             body: Verbindet Human-AI Interaction mit CRM- und HR-Prozessen.
@@ -115,10 +115,26 @@ pages:
             body: Setzt Automatisierung in praxisnahen Projekten um.
           - title: Project Management & Customer Experience
             body: Verbindet Projektsteuerung mit nutzerorientierter Gestaltung.
+      - id: faq
+        job: Einwände vorwegnehmen
+        eyebrow: FAQ
+        headline: Häufige Fragen
+        support: Kurz und klar — ohne Beratungsfloskeln.
+        items:
+          - title: Welche Daten benötigt eine Automatisierung?
+            body: Nur die für den gewählten Ablauf erforderlichen Felder. Wir starten mit einem konkreten Prozessbild.
+          - title: Wo werden Daten verarbeitet?
+            body: Bevorzugt in Ihren bestehenden Systemen bzw. abgestimmten Diensten — transparent dokumentiert.
+          - title: Können bestehende Systeme angebunden werden?
+            body: Ja, wenn Schnittstellen oder Exportwege existieren. Der Pilot prüft das früh.
+          - title: Welche Schritte bleiben unter menschlicher Kontrolle?
+            body: Sensible Kommunikation und Entscheidungen — Automatisierung ersetzt keine Verantwortung.
+          - title: Wie schnell melden Sie sich nach der Anfrage?
+            body: Innerhalb eines Werktags mit einer ersten Einschätzung.
       - id: closing_cta
         job: Eine nächste Handlung
         headline: Welcher Prozess kostet Ihr Team regelmäßig Zeit?
-        support: Im kostenlosen Check ordnen wir Nutzen, Aufwand und Risiken ein.
+        support: Im kostenlosen Check ordnen wir Nutzen, Aufwand und Risiken ein. Antwort innerhalb eines Werktags.
         cta_label: Prozess kostenlos prüfen lassen
         cta_href: /kontakt
 
@@ -161,4 +177,16 @@ pages:
       - id: contact_intro
         job: Anfrage ermöglichen
         headline: Prozess kostenlos prüfen lassen
-        support: Beschreiben Sie einen wiederkehrenden Ablauf — wir melden uns mit einer Einschätzung.
+        support: Beschreiben Sie einen wiederkehrenden Ablauf — wir melden uns innerhalb eines Werktags.
+
+  - id: thanks
+    path: /danke
+    title: Danke — Anfrage eingegangen
+    meta_description: Vielen Dank. Wir melden uns innerhalb eines Werktags.
+    sections:
+      - id: thanks_body
+        job: Bestätigung und nächster Schritt
+        headline: Danke. Wir haben Ihre Anfrage.
+        support: Innerhalb eines Werktags melden wir uns mit einer ersten Einschätzung.
+        cta_label: Zur Startseite
+        cta_href: /

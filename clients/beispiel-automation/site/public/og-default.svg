@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Beispiel Automation">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#E9EEF0"/>
+      <stop offset="100%" stop-color="#0D7A6F"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#g)"/>
+  <rect x="64" y="64" width="1072" height="502" fill="#132028" opacity="0.08"/>
+  <text x="96" y="300" font-family="Georgia, serif" font-size="64" fill="#132028">Beispiel Automation</text>
+  <text x="96" y="370" font-family="Arial, sans-serif" font-size="32" fill="#132028">Automation mit Menschenverstand.</text>
+</svg>

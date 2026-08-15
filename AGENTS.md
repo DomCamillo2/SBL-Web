@@ -29,11 +29,16 @@ If locks are missing (`design.lock` / content lock fields), **stop and ask for l
 - One job per section
 - Prefer real photography / place / product context
 - Prefer `@sbl-web/ui` primitives (`DefinitionList`, `AsymmetricSplit`, `Reveal`) over equal icon-card grids
+- Collect the 20 launch intake answers into `BRIEF.yaml` → `launch` (see `templates/client-brief/INTAKE-QUESTIONS.md`)
 - Keep German copy concrete and local (city, region, real offer)
 - Respect `prefers-reduced-motion`
 - Style `::selection` and `:focus-visible`
 - Link Impressum + Datenschutz
 - Keep third-party MIT notices in `packages/ui/NOTICE.md` when adapting more code
+
+## Launch blockers before go-live
+
+404, hero CTA, thank-you page, robots.txt, unique titles, meta descriptions, alt text, local schema, privacy page — see `docs/research/launch-checklist.md`.
 
 ## Build sequence
 

@@ -234,6 +234,192 @@ export async function run(clientDir) {
     if (!/impressum/i.test(blob) || !/datenschutz/i.test(blob)) {
       push("error", "AS009", "Impressum and Datenschutz links required", label);
     }
+
+    const imgTags = blob.match(/<img\b[^>]*>/gi) ?? [];
+    for (const tag of imgTags) {
+      if (!/\balt\s*=/.test(tag)) {
+        push("error", "LC15", `Image missing alt attribute: ${tag.slice(0, 80)}`, label);
+      }
+    }
+  }
+
+  // --- Launch checklist (20-point reel) ---
+  let brief = null;
+  let content = null;
+  if (await exists(briefPath)) {
+    try {
+      brief = await readYaml(briefPath);
+    } catch {
+      push("error", "AS000", "BRIEF.yaml could not be parsed", briefPath);
+    }
+  }
+  if (await exists(contentPath)) {
+    try {
+      content = await readYaml(contentPath);
+    } catch {
+      /* already handled above */
+    }
+  }
+
+  const sitePages = path.join(root, "site", "src", "pages");
+  const publicDir = path.join(root, "site", "public");
+  const launch = brief?.launch ?? {};
+
+  if (!(await exists(path.join(sitePages, "404.astro")))) {
+    push("error", "LC01", "Custom 404 page missing (src/pages/404.astro)", sitePages);
+  }
+
+  const home = content?.pages?.find((p) => p.id === "home");
+  const hero = home?.sections?.find((s) => s.id === "hero");
+  if (!hero?.cta_label || !hero?.cta_href) {
+    push("error", "LC02", "Hero CTA above the fold missing (cta_label/cta_href)", contentPath);
+  }
+
+  if (launch.thank_you_page !== false) {
+    const thanks =
+      (await exists(path.join(sitePages, "danke.astro"))) ||
+      content?.pages?.some((p) => p.id === "thanks" || p.path === "/danke");
+    if (!thanks) {
+      push("error", "LC04", "Thank-you page missing (/danke)", sitePages);
+    }
+  }
+
+  if (launch.breadcrumbs !== false && (await exists(sitePages))) {
+    const pageFiles = await collectFiles(sitePages, [".astro"]);
+    const pageBlob = (await Promise.all(pageFiles.map((f) => fs.readFile(f, "utf8")))).join(
+      "\n",
+    );
+    if (!/Breadcrumbs/.test(pageBlob)) {
+      push("warn", "LC05", "Breadcrumbs not used on site pages", sitePages);
+    }
+  }
+
+  if (launch.faq_required !== false && content) {
+    const faqSection = (content.pages ?? [])
+      .flatMap((p) => p.sections ?? [])
+      .find((s) => s.id === "faq");
+    const min = launch.faq_min_items ?? 5;
+    const count = faqSection?.items?.length ?? 0;
+    if (count < min) {
+      push("error", "LC06", `FAQ needs ≥ ${min} items (found ${count})`, contentPath);
+    }
+  }
+
+  if (!brief?.contact?.response_time_promise) {
+    push("error", "LC07", "Response-time promise missing in BRIEF contact", briefPath);
+  }
+
+  if (launch.sticky_mobile_cta !== false && (await exists(siteSrc))) {
+    const files = await collectFiles(siteSrc, [".astro", ".js"]);
+    const pageBlob = (await Promise.all(files.map((f) => fs.readFile(f, "utf8")))).join("\n");
+    // Sticky comes from BaseLayout via pageShell — check archetype + site
+    const arch = path.resolve(root, "../../archetypes/service-local-b2b/src");
+    let all = pageBlob;
+    if (await exists(arch)) {
+      const aFiles = await collectFiles(arch, [".astro", ".js"]);
+      all += (await Promise.all(aFiles.map((f) => fs.readFile(f, "utf8")))).join("\n");
+    }
+    if (!/StickyMobileCta|stickyCta/.test(all)) {
+      push("error", "LC08", "Sticky mobile CTA not wired", siteSrc);
+    }
+  }
+
+  if (launch.robots_txt !== false && !(await exists(path.join(publicDir, "robots.txt")))) {
+    push("error", "LC09", "robots.txt missing in site/public", publicDir);
+  }
+
+  if (content?.pages?.length) {
+    const titles = content.pages.map((p) => p.title?.trim()).filter(Boolean);
+    const uniq = new Set(titles);
+    if (uniq.size !== titles.length) {
+      push("error", "LC10", "Page titles must be unique", contentPath);
+    }
+    for (const page of content.pages) {
+      if (!page.meta_description || String(page.meta_description).trim().length < 40) {
+        push(
+          "error",
+          "LC11",
+          `meta_description missing/too short for page ${page.id}`,
+          contentPath,
+        );
+      }
+    }
+  }
+
+  if (launch.social_share_image !== false) {
+    const og = brief?.assets?.og_image;
+    if (!og) {
+      push("error", "LC12", "Social share image (assets.og_image) missing", briefPath);
+    } else if (og.startsWith("/") && !(await exists(path.join(publicDir, og.replace(/^\//, ""))))) {
+      // allow remote URLs; local public paths must exist
+      push("warn", "LC12", `og_image not found in public: ${og}`, publicDir);
+    }
+  }
+
+  if (launch.maps_directions !== false) {
+    if (!brief?.contact?.maps_url && !brief?.contact?.address) {
+      push("error", "LC13", "Maps/directions need maps_url or address", briefPath);
+    }
+  }
+
+  if (brief?.launch?.reviews?.enabled) {
+    if (!brief.launch.reviews.permission_confirmed) {
+      push(
+        "error",
+        "LC14",
+        "Reviews enabled but permission_confirmed is false",
+        briefPath,
+      );
+    }
+  }
+
+  if (launch.local_schema !== false) {
+    const archLib = path.resolve(root, "../../archetypes/service-local-b2b/src/lib/content.js");
+    const archLibAlt = path.resolve(root, "../../../archetypes/service-local-b2b/src/lib/content.js");
+    let hasSchemaHelper = false;
+    for (const candidate of [archLib, archLibAlt]) {
+      if (await exists(candidate)) {
+        const src = await fs.readFile(candidate, "utf8");
+        if (/buildLocalBusinessSchema/.test(src)) hasSchemaHelper = true;
+      }
+    }
+    if (!hasSchemaHelper) {
+      push("warn", "LC16", "LocalBusiness schema helper not found in archetype", root);
+    }
+    if (!brief?.hosting?.site_url && !brief?.hosting?.production_domain) {
+      push("warn", "LC16", "site_url/production_domain recommended for schema/OG", briefPath);
+    }
+  }
+
+  if (launch.privacy_page !== false && brief?.legal?.privacy_ready !== true) {
+    push("error", "LC17", "Privacy page must be ready (legal.privacy_ready)", briefPath);
+  }
+
+  if (brief?.launch?.analytics?.enabled && brief.launch.analytics.provider === "google") {
+    if (brief.launch.analytics.consent_required !== false) {
+      push(
+        "warn",
+        "LC18",
+        "Google Analytics enabled — ensure consent banner before loading tags",
+        briefPath,
+      );
+    }
+  }
+
+  if (brief?.launch?.team_photo?.available === true && !brief.launch.team_photo.path && !brief.assets?.team_photo) {
+    push("error", "LC19", "Team photo marked available but path missing", briefPath);
+  }
+  if (brief?.launch?.team_photo?.available === false && !brief.launch.team_photo?.skip_reason) {
+    push("warn", "LC19", "Team photo skipped without skip_reason", briefPath);
+  }
+
+  if (brief?.launch?.case_studies?.enabled && (brief.launch.case_studies.count_available ?? 0) < 1) {
+    push(
+      "warn",
+      "LC20",
+      "Case studies enabled but count_available is 0 — disable or add real cases",
+      briefPath,
+    );
   }
 
   const errors = issues.filter((i) => i.severity === "error").length;

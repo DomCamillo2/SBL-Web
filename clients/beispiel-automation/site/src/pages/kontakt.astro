@@ -1,42 +1,44 @@
 ---
 import BaseLayout from "@sbl-web/archetype-service-local-b2b/components/BaseLayout.astro";
+import Breadcrumbs from "@sbl-web/ui/components/Breadcrumbs.astro";
 import "@sbl-web/archetype-service-local-b2b/styles.css";
+import { getPage } from "@sbl-web/archetype-service-local-b2b/lib/content.js";
 import {
-  getPage,
-  googleFontsHref,
-  loadBrief,
-  loadContent,
-  loadTokens,
-  tokensToCssVars,
-} from "@sbl-web/archetype-service-local-b2b/lib/content.js";
+  createPageShell,
+  pageTitle,
+} from "@sbl-web/archetype-service-local-b2b/lib/pageShell.js";
 
-const content = loadContent();
-const tokens = loadTokens();
-const brief = loadBrief();
+const { content, brief, layout } = createPageShell({
+  path: "/kontakt",
+  navLinks: [
+    { href: "/", label: "Start" },
+    { href: "/vorgehen", label: "Vorgehen" },
+  ],
+});
 const page = getPage(content, "contact");
-const brand = content.seo_defaults.site_name;
 const cta = brief?.contact?.cta_label ?? "Anfrage senden";
 ---
 
 <BaseLayout
-  title={`${page.title}${content.seo_defaults.title_suffix}`}
+  title={pageTitle(content, page)}
   description={page.meta_description}
-  brand={brand}
-  fontsHref={googleFontsHref(tokens)}
-  cssVars={tokensToCssVars(tokens)}
-  email={brief?.contact?.email}
-  phone={brief?.contact?.phone}
-  navLinks={[
-    { href: "/", label: "Start" },
-    { href: "/vorgehen", label: "Vorgehen" },
-  ]}
+  {...layout}
 >
   <section class="sbl-section">
     <div class="sbl-shell">
+      <Breadcrumbs
+        items={[
+          { label: "Start", href: "/" },
+          { label: "Kontakt" },
+        ]}
+      />
       <p class="sbl-kicker">Kontakt</p>
       <h1>{page.sections?.[0]?.headline ?? page.title}</h1>
       <p class="sbl-lead">{page.sections?.[0]?.support ?? page.meta_description}</p>
-      <form class="sbl-form" method="post" action="mailto:hallo@example.com" enctype="text/plain">
+      {brief?.contact?.response_time_promise && (
+        <p class="sbl-meta">{brief.contact.response_time_promise}</p>
+      )}
+      <form class="sbl-form" method="get" action="/danke">
         <label>
           Name
           <input name="name" type="text" required autocomplete="name" />
@@ -56,6 +58,13 @@ const cta = brief?.contact?.cta_label ?? "Anfrage senden";
         <span>{brief?.contact?.phone}</span>
         <span>{brief?.contact?.address}</span>
       </p>
+      {brief?.contact?.maps_url && (
+        <p>
+          <a class="sbl-link-underline" href={brief.contact.maps_url} rel="noopener noreferrer">
+            Karte & Anfahrt öffnen
+          </a>
+        </p>
+      )}
     </div>
   </section>
 </BaseLayout>

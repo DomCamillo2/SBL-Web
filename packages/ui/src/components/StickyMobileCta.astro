@@ -1,0 +1,47 @@
+---
+const { label, href, phone } = Astro.props;
+---
+<div class="sbl-sticky-cta" role="region" aria-label="Schnellaktion">
+  {phone && (
+    <a class="sbl-sticky-cta__phone" href={`tel:${phone.replace(/\s+/g, "")}`}>Anrufen</a>
+  )}
+  <a class="sbl-sticky-cta__main sbl-btn" href={href}>{label}</a>
+</div>
+
+<style>
+  .sbl-sticky-cta {
+    display: none;
+  }
+  @media (max-width: 720px) {
+    .sbl-sticky-cta {
+      position: fixed;
+      z-index: 40;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      gap: 0.5rem;
+      padding: 0.65rem 0.85rem calc(0.65rem + env(safe-area-inset-bottom));
+      background: color-mix(in oklab, var(--sbl-bg, #e9eef0) 88%, white);
+      border-top: 1px solid color-mix(in oklab, var(--sbl-fg, #132028) 12%, transparent);
+      box-shadow: 0 -8px 24px color-mix(in oklab, var(--sbl-fg, #132028) 10%, transparent);
+    }
+    .sbl-sticky-cta__phone {
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      padding: 0.75rem 0.9rem;
+      text-decoration: none;
+      font-weight: 600;
+      color: var(--sbl-fg, #132028);
+      border: 1px solid color-mix(in oklab, var(--sbl-fg, #132028) 18%, transparent);
+    }
+    .sbl-sticky-cta__main {
+      flex: 1;
+      text-align: center;
+    }
+    body {
+      padding-bottom: 5.5rem;
+    }
+  }
+</style>

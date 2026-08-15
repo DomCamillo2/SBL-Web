@@ -1,7 +1,5 @@
 ---
 import BaseLayout from "@sbl-web/archetype-service-local-b2b/components/BaseLayout.astro";
-import SectionPhases from "@sbl-web/archetype-service-local-b2b/components/SectionPhases.astro";
-import ClosingCta from "@sbl-web/archetype-service-local-b2b/components/ClosingCta.astro";
 import Breadcrumbs from "@sbl-web/ui/components/Breadcrumbs.astro";
 import "@sbl-web/archetype-service-local-b2b/styles.css";
 import { getPage } from "@sbl-web/archetype-service-local-b2b/lib/content.js";
@@ -10,36 +8,40 @@ import {
   pageTitle,
 } from "@sbl-web/archetype-service-local-b2b/lib/pageShell.js";
 
-const { content, layout } = createPageShell({
-  path: "/vorgehen",
-  navLinks: [
-    { href: "/", label: "Start" },
-    { href: "/kontakt", label: "Kontakt" },
-  ],
+const { content, brief, layout } = createPageShell({
+  path: "/danke",
+  includeSchema: false,
+  navLinks: [{ href: "/", label: "Start" }],
 });
-const page = getPage(content, "method");
+const page = getPage(content, "thanks");
 const section = page.sections?.[0];
-const closing = page.sections?.find((s) => s.id === "closing_cta");
 ---
 
 <BaseLayout
   title={pageTitle(content, page)}
   description={page.meta_description}
   {...layout}
+  noIndex={true}
 >
   <section class="sbl-section">
     <div class="sbl-shell sbl-legal">
       <Breadcrumbs
         items={[
           { label: "Start", href: "/" },
-          { label: "Vorgehen" },
+          { label: "Kontakt", href: "/kontakt" },
+          { label: "Danke" },
         ]}
       />
-      <p class="sbl-kicker">Vorgehen</p>
-      <h1>{page.title}</h1>
-      <p class="sbl-lead">{page.meta_description}</p>
+      <h1>{section?.headline ?? page.title}</h1>
+      <p class="sbl-lead">{section?.support}</p>
+      {brief?.contact?.response_time_promise && (
+        <p class="sbl-meta">{brief.contact.response_time_promise}</p>
+      )}
+      {section?.cta_href && (
+        <p style="margin-top:1.5rem">
+          <a class="sbl-btn" href={section.cta_href}>{section.cta_label}</a>
+        </p>
+      )}
     </div>
   </section>
-  {section && <SectionPhases section={section} />}
-  {closing && <ClosingCta section={closing} />}
 </BaseLayout>

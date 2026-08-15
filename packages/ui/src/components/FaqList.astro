@@ -1,0 +1,35 @@
+---
+const { items = [] } = Astro.props;
+---
+{items.length > 0 && (
+  <div class="sbl-faq">
+    {items.map((item) => (
+      <details class="sbl-faq__item">
+        <summary>{item.question ?? item.title}</summary>
+        <div class="sbl-faq__body">{item.answer ?? item.body}</div>
+      </details>
+    ))}
+  </div>
+)}
+
+<style>
+  .sbl-faq {
+    margin-top: 1.5rem;
+    border-top: 1px solid color-mix(in oklab, var(--sbl-fg, #132028) 12%, transparent);
+  }
+  .sbl-faq__item {
+    border-bottom: 1px solid color-mix(in oklab, var(--sbl-fg, #132028) 12%, transparent);
+    padding: 0.85rem 0;
+  }
+  .sbl-faq__item summary {
+    cursor: pointer;
+    font-family: var(--sbl-font-display, inherit);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+  .sbl-faq__body {
+    margin-top: 0.55rem;
+    color: var(--sbl-muted, #4a5a62);
+    max-width: 48ch;
+  }
+</style>

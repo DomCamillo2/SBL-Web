@@ -4,24 +4,18 @@ import Hero from "@sbl-web/archetype-service-local-b2b/components/Hero.astro";
 import SectionList from "@sbl-web/archetype-service-local-b2b/components/SectionList.astro";
 import SectionPhases from "@sbl-web/archetype-service-local-b2b/components/SectionPhases.astro";
 import ClosingCta from "@sbl-web/archetype-service-local-b2b/components/ClosingCta.astro";
+import FaqList from "@sbl-web/ui/components/FaqList.astro";
 import "@sbl-web/archetype-service-local-b2b/styles.css";
 import {
   getPage,
-  googleFontsHref,
-  loadBrief,
-  loadContent,
-  loadTokens,
-  tokensToCssVars,
 } from "@sbl-web/archetype-service-local-b2b/lib/content.js";
+import {
+  createPageShell,
+  pageTitle,
+} from "@sbl-web/archetype-service-local-b2b/lib/pageShell.js";
 
-const content = loadContent();
-const tokens = loadTokens();
-const brief = loadBrief();
+const { content, brief, brand, layout } = createPageShell({ path: "/" });
 const page = getPage(content, "home");
-const brand = content.seo_defaults.site_name;
-const cssVars = tokensToCssVars(tokens);
-const fontsHref = googleFontsHref(tokens);
-
 const byId = Object.fromEntries((page.sections ?? []).map((s) => [s.id, s]));
 const listSections = ["experience", "pain_points", "topics", "examples", "team"].filter(
   (id) => byId[id],
@@ -29,26 +23,16 @@ const listSections = ["experience", "pain_points", "topics", "examples", "team"]
 ---
 
 <BaseLayout
-  title={`${page.title}${content.seo_defaults.title_suffix}`}
+  title={pageTitle(content, page)}
   description={page.meta_description}
-  brand={brand}
-  fontsHref={fontsHref}
-  cssVars={cssVars}
-  email={brief?.contact?.email}
-  phone={brief?.contact?.phone}
-  navLinks={[
-    { href: "/#pain_points", label: "Alltag" },
-    { href: "/#method", label: "Vorgehen" },
-    { href: "/vorgehen", label: "Details" },
-    { href: "/kontakt", label: "Kontakt" },
-  ]}
+  {...layout}
 >
   {byId.hero && (
     <Hero
       brand={brand}
       section={byId.hero}
       region={brief?.business?.region ? `Region ${brief.business.region}` : undefined}
-      processHint="Eingang → Automation → Mensch prüft"
+      processHint={brief?.contact?.response_time_promise || "Eingang → Automation → Mensch prüft"}
     />
   )}
 
@@ -57,5 +41,30 @@ const listSections = ["experience", "pain_points", "topics", "examples", "team"]
   ))}
 
   {byId.method && <SectionPhases section={byId.method} />}
+
+  {byId.faq && (
+    <section class="sbl-section" id="faq">
+      <div class="sbl-shell">
+        {byId.faq.eyebrow && <p class="sbl-kicker">{byId.faq.eyebrow}</p>}
+        <h2>{byId.faq.headline}</h2>
+        {byId.faq.support && <p class="sbl-lead">{byId.faq.support}</p>}
+        <FaqList items={byId.faq.items ?? []} />
+      </div>
+    </section>
+  )}
+
   {byId.closing_cta && <ClosingCta section={byId.closing_cta} />}
+
+  <section class="sbl-section">
+    <div class="sbl-shell">
+      <p class="sbl-kicker">Weiterlesen</p>
+      <p>
+        <a class="sbl-link-underline" href="/vorgehen">Vorgehen im Detail</a>
+        {" · "}
+        <a class="sbl-link-underline" href="/kontakt">Kontakt & Anfahrt</a>
+        {" · "}
+        <a class="sbl-link-underline" href="/#examples">Beispielprozesse</a>
+      </p>
+    </div>
+  </section>
 </BaseLayout>

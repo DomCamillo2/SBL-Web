@@ -152,21 +152,104 @@
         "address": { "type": "string" },
         "hours": { "type": "string" },
         "maps_url": { "type": "string", "format": "uri" },
-        "cta_label": { "type": "string" }
+        "cta_label": { "type": "string" },
+        "response_time_promise": {
+          "type": "string",
+          "description": "e.g. Wir melden uns innerhalb eines Werktags."
+        }
       }
     },
     "assets": {
       "type": "object",
       "properties": {
         "logo": { "type": "string" },
+        "og_image": {
+          "type": "string",
+          "description": "Path or URL to 1200x630 social share image"
+        },
+        "team_photo": {
+          "type": "string",
+          "description": "Real team/work photo path; omit if none"
+        },
         "photos": {
           "type": "array",
-          "items": { "type": "string" }
+          "items": {
+            "type": "object",
+            "required": ["src", "alt"],
+            "properties": {
+              "src": { "type": "string" },
+              "alt": { "type": "string", "minLength": 3 }
+            }
+          }
         },
         "missing": {
           "type": "array",
           "items": { "type": "string" },
           "description": "Assets still needed before content.lock"
+        }
+      }
+    },
+    "launch": {
+      "type": "object",
+      "description": "20-point pre-launch intake (see templates/client-brief/INTAKE-QUESTIONS.md)",
+      "properties": {
+        "custom_404": { "type": "boolean", "default": true },
+        "cta_above_fold": { "type": "boolean", "default": true },
+        "internal_links": { "type": "boolean", "default": true },
+        "thank_you_page": { "type": "boolean", "default": true },
+        "breadcrumbs": { "type": "boolean", "default": true },
+        "case_studies": {
+          "type": "object",
+          "properties": {
+            "enabled": { "type": "boolean" },
+            "count_available": { "type": "integer", "minimum": 0 }
+          }
+        },
+        "faq_required": { "type": "boolean", "default": true },
+        "faq_min_items": { "type": "integer", "minimum": 5, "default": 5 },
+        "sticky_mobile_cta": { "type": "boolean", "default": true },
+        "robots_txt": { "type": "boolean", "default": true },
+        "unique_titles": { "type": "boolean", "default": true },
+        "meta_descriptions": { "type": "boolean", "default": true },
+        "social_share_image": { "type": "boolean", "default": true },
+        "maps_directions": { "type": "boolean", "default": true },
+        "reviews": {
+          "type": "object",
+          "properties": {
+            "enabled": { "type": "boolean" },
+            "source": { "type": "string" },
+            "permission_confirmed": { "type": "boolean" }
+          }
+        },
+        "alt_text_policy": {
+          "type": "string",
+          "enum": ["required", "decorative_ok"]
+        },
+        "local_schema": { "type": "boolean", "default": true },
+        "schema_type": {
+          "type": "string",
+          "enum": ["LocalBusiness", "ProfessionalService", "Store", "Restaurant", "MedicalBusiness"]
+        },
+        "privacy_page": { "type": "boolean", "default": true },
+        "analytics": {
+          "type": "object",
+          "properties": {
+            "enabled": { "type": "boolean" },
+            "provider": {
+              "type": "string",
+              "enum": ["none", "plausible", "google", "matomo"]
+            },
+            "measurement_id": { "type": "string" },
+            "consent_required": { "type": "boolean", "default": true }
+          }
+        },
+        "team_photo": {
+          "type": "object",
+          "properties": {
+            "available": { "type": "boolean" },
+            "path": { "type": "string" },
+            "skip_reason": { "type": "string" }
+          }
         }
       }
     },
@@ -187,7 +270,11 @@
         "staging_subdomain": { "type": "string" },
         "production_domain": { "type": "string" },
         "need_forms": { "type": "boolean", "default": true },
-        "need_cms": { "type": "boolean", "default": false }
+        "need_cms": { "type": "boolean", "default": false },
+        "site_url": {
+          "type": "string",
+          "description": "Canonical production URL for OG + schema"
+        }
       }
     },
     "locks": {
@@ -195,6 +282,7 @@
       "properties": {
         "design_locked_at": { "type": "string", "format": "date-time" },
         "content_locked_at": { "type": "string", "format": "date-time" },
+        "launch_checked_at": { "type": "string", "format": "date-time" },
         "approved_by": { "type": "string" }
       }
     }
