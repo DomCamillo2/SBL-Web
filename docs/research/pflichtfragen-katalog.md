@@ -38,6 +38,7 @@ Verwandte Intake-Docs (Detailfragen, keine zweite Wahrheit):
 
 - Launch-20 → [`INTAKE-QUESTIONS.md`](../../templates/client-brief/INTAKE-QUESTIONS.md)  
 - Legal → [`LEGAL-INTAKE.md`](../../templates/client-brief/LEGAL-INTAKE.md)  
+- **Ausfüll-PDF (CI):** [`SBL-Web-Kundenfragebogen.pdf`](../../brand/exports/SBL-Web-Kundenfragebogen.pdf)  
 - Master = dieser Katalog + YAML
 
 ---

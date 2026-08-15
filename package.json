@@ -10,7 +10,8 @@
     "preview:demo": "pnpm --filter @sbl-web/beispiel-automation preview",
     "anti-slop": "node packages/anti-slop/src/cli.js",
     "anti-slop:demo": "node packages/anti-slop/src/cli.js clients/beispiel-automation",
-    "check:demo": "pnpm factory check beispiel-automation && pnpm build:demo"
+    "check:demo": "pnpm factory check beispiel-automation && pnpm build:demo",
+    "pdf:fragebogen": "python3 scripts/generate-fragebogen-pdf.py"
   },
   "engines": {
     "node": ">=20"

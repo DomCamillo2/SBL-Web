@@ -59,6 +59,13 @@ Maschinenlesbar: [`tokens.json`](./tokens.json)
 
 Klar, handwerklich, präzise. Keine leeren KI-Phrasen („innovativ“, „ganzheitlich“, „AI-powered“).
 
+## Kundenfragebogen (PDF)
+
+Druck-/Ausfüllversion des Pflichtfragen-Katalogs in Factory-CI:
+
+- Datei: [`exports/SBL-Web-Kundenfragebogen.pdf`](./exports/SBL-Web-Kundenfragebogen.pdf)
+- Generator: `python3 scripts/generate-fragebogen-pdf.py` (liest `docs/research/pflichtfragen.catalog.yaml`)
+
 ## GitHub
 
 1. Repo-Avatar: `brand/logo/sbl-avatar.png` (in GitHub → Settings → General → oder Org-Avatar manuell setzen)  

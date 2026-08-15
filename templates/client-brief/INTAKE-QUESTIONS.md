@@ -2,6 +2,7 @@
 
 > Master-Katalog (P0–P3, ein Fragebogen → Factory):  
 > [`docs/research/pflichtfragen-katalog.md`](../../docs/research/pflichtfragen-katalog.md)  
+> **Ausfüll-PDF (CI):** [`brand/exports/SBL-Web-Kundenfragebogen.pdf`](../../brand/exports/SBL-Web-Kundenfragebogen.pdf)  
 > Dieses Dokument ist die **Launch-Detailtiefe** (Checkliste #1–20), keine zweite Wahrheitsquelle.
 
 Diese Fragen gehören in jedes Kundengespräch **vor** Design Lock.  

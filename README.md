@@ -41,6 +41,7 @@ Deep Research: [docs/research/kmu-website-pipeline.md](docs/research/kmu-website
 | Artefakt | Pfad |
 |----------|------|
 | **Factory-CI / Logo** | `brand/CI.md`, `brand/logo/` |
+| **Kundenfragebogen PDF** | `brand/exports/SBL-Web-Kundenfragebogen.pdf` |
 | Pipeline-Research | `docs/research/kmu-website-pipeline.md` |
 | **Pflichtfragen-Katalog** | `docs/research/pflichtfragen-katalog.md` + `pflichtfragen.catalog.yaml` |
 | Fragebogen-Schema | `docs/schemas/questionnaire.schema.json` |

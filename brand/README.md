@@ -8,6 +8,13 @@ Corporate Identity für **SBL-Web** (dieses Repo / die Factory), nicht für Kund
 | Tokens | [tokens.json](./tokens.json) |
 | Logo (SVG/PNG) | [logo/](./logo/) |
 | Social Export | [exports/github-social.png](./exports/github-social.png) |
+| **Kundenfragebogen (PDF)** | [exports/SBL-Web-Kundenfragebogen.pdf](./exports/SBL-Web-Kundenfragebogen.pdf) |
+
+PDF neu bauen:
+
+```bash
+python3 scripts/generate-fragebogen-pdf.py
+```
 
 ## GitHub Avatar setzen
 
