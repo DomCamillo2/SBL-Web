@@ -1,0 +1,25 @@
+services:
+  site:
+    build:
+      context: ../../..
+      dockerfile: clients/beispiel-automation/site/Dockerfile
+    image: sbl-web/beispiel-automation:local
+    restart: unless-stopped
+    networks:
+      - sbl-proxy
+    mem_limit: 64m
+    cpus: 0.25
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.beispiel-automation.rule=Host(`beispiel-automation.localhost`) || Host(`beispiel-automation.staging.example.com`)
+      - traefik.http.routers.beispiel-automation.entrypoints=websecure
+      - traefik.http.routers.beispiel-automation.tls=true
+      - traefik.http.services.beispiel-automation.loadbalancer.server.port=80
+    # For local smoke without Traefik TLS, also publish:
+    ports:
+      - "8088:80"
+
+networks:
+  sbl-proxy:
+    external: true
+    name: sbl-proxy

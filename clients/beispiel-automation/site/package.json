@@ -1,0 +1,16 @@
+{
+  "name": "@sbl-web/beispiel-automation",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev --host 0.0.0.0 --port 4321",
+    "build": "astro build",
+    "preview": "astro preview --host 0.0.0.0 --port 4321",
+    "anti-slop": "pnpm --filter @sbl-web/anti-slop start -- ../.."
+  },
+  "dependencies": {
+    "@sbl-web/archetype-service-local-b2b": "workspace:*",
+    "astro": "^5.13.2"
+  }
+}

@@ -1,0 +1,61 @@
+---
+import BaseLayout from "@sbl-web/archetype-service-local-b2b/components/BaseLayout.astro";
+import Hero from "@sbl-web/archetype-service-local-b2b/components/Hero.astro";
+import SectionList from "@sbl-web/archetype-service-local-b2b/components/SectionList.astro";
+import SectionPhases from "@sbl-web/archetype-service-local-b2b/components/SectionPhases.astro";
+import ClosingCta from "@sbl-web/archetype-service-local-b2b/components/ClosingCta.astro";
+import "@sbl-web/archetype-service-local-b2b/styles.css";
+import {
+  getPage,
+  googleFontsHref,
+  loadBrief,
+  loadContent,
+  loadTokens,
+  tokensToCssVars,
+} from "@sbl-web/archetype-service-local-b2b/lib/content.js";
+
+const content = loadContent();
+const tokens = loadTokens();
+const brief = loadBrief();
+const page = getPage(content, "home");
+const brand = content.seo_defaults.site_name;
+const cssVars = tokensToCssVars(tokens);
+const fontsHref = googleFontsHref(tokens);
+
+const byId = Object.fromEntries((page.sections ?? []).map((s) => [s.id, s]));
+const listSections = ["experience", "pain_points", "topics", "examples", "team"].filter(
+  (id) => byId[id],
+);
+---
+
+<BaseLayout
+  title={`${page.title}${content.seo_defaults.title_suffix}`}
+  description={page.meta_description}
+  brand={brand}
+  fontsHref={fontsHref}
+  cssVars={cssVars}
+  email={brief?.contact?.email}
+  phone={brief?.contact?.phone}
+  navLinks={[
+    { href: "/#pain_points", label: "Alltag" },
+    { href: "/#method", label: "Vorgehen" },
+    { href: "/vorgehen", label: "Details" },
+    { href: "/kontakt", label: "Kontakt" },
+  ]}
+>
+  {byId.hero && (
+    <Hero
+      brand={brand}
+      section={byId.hero}
+      region={brief?.business?.region ? `Region ${brief.business.region}` : undefined}
+      processHint="Eingang → Automation → Mensch prüft"
+    />
+  )}
+
+  {listSections.map((id) => (
+    <SectionList section={byId[id]} />
+  ))}
+
+  {byId.method && <SectionPhases section={byId.method} />}
+  {byId.closing_cta && <ClosingCta section={byId.closing_cta} />}
+</BaseLayout>

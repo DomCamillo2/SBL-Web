@@ -1,0 +1,61 @@
+---
+import BaseLayout from "@sbl-web/archetype-service-local-b2b/components/BaseLayout.astro";
+import "@sbl-web/archetype-service-local-b2b/styles.css";
+import {
+  getPage,
+  googleFontsHref,
+  loadBrief,
+  loadContent,
+  loadTokens,
+  tokensToCssVars,
+} from "@sbl-web/archetype-service-local-b2b/lib/content.js";
+
+const content = loadContent();
+const tokens = loadTokens();
+const brief = loadBrief();
+const page = getPage(content, "contact");
+const brand = content.seo_defaults.site_name;
+const cta = brief?.contact?.cta_label ?? "Anfrage senden";
+---
+
+<BaseLayout
+  title={`${page.title}${content.seo_defaults.title_suffix}`}
+  description={page.meta_description}
+  brand={brand}
+  fontsHref={googleFontsHref(tokens)}
+  cssVars={tokensToCssVars(tokens)}
+  email={brief?.contact?.email}
+  phone={brief?.contact?.phone}
+  navLinks={[
+    { href: "/", label: "Start" },
+    { href: "/vorgehen", label: "Vorgehen" },
+  ]}
+>
+  <section class="sbl-section">
+    <div class="sbl-shell">
+      <p class="sbl-kicker">Kontakt</p>
+      <h1>{page.sections?.[0]?.headline ?? page.title}</h1>
+      <p class="sbl-lead">{page.sections?.[0]?.support ?? page.meta_description}</p>
+      <form class="sbl-form" method="post" action="mailto:hallo@example.com" enctype="text/plain">
+        <label>
+          Name
+          <input name="name" type="text" required autocomplete="name" />
+        </label>
+        <label>
+          E-Mail
+          <input name="email" type="email" required autocomplete="email" />
+        </label>
+        <label>
+          Welcher Prozess kostet regelmäßig Zeit?
+          <textarea name="process" rows="5" required></textarea>
+        </label>
+        <button class="sbl-btn" type="submit">{cta}</button>
+      </form>
+      <p class="sbl-meta" style="margin-top:1.5rem">
+        <span>{brief?.contact?.email}</span>
+        <span>{brief?.contact?.phone}</span>
+        <span>{brief?.contact?.address}</span>
+      </p>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,44 @@
+---
+import BaseLayout from "@sbl-web/archetype-service-local-b2b/components/BaseLayout.astro";
+import "@sbl-web/archetype-service-local-b2b/styles.css";
+import {
+  googleFontsHref,
+  loadBrief,
+  loadContent,
+  loadTokens,
+  tokensToCssVars,
+} from "@sbl-web/archetype-service-local-b2b/lib/content.js";
+
+const content = loadContent();
+const tokens = loadTokens();
+const brief = loadBrief();
+const brand = content.seo_defaults.site_name;
+---
+
+<BaseLayout
+  title={`Datenschutz${content.seo_defaults.title_suffix}`}
+  description="Datenschutz"
+  brand={brand}
+  fontsHref={googleFontsHref(tokens)}
+  cssVars={tokensToCssVars(tokens)}
+  email={brief?.contact?.email}
+  phone={brief?.contact?.phone}
+  navLinks={[{ href: "/", label: "Start" }]}
+>
+  <section class="sbl-section">
+    <div class="sbl-shell sbl-legal">
+      <h1>Datenschutz</h1>
+      <p>
+        Diese Demo-Website speichert keine Analyse-Cookies. Das Kontaktformular nutzt in dieser
+        Demo einen mailto-Fallback und überträgt Daten erst, wenn Sie den Versand in Ihrem
+        E-Mail-Programm bestätigen.
+      </p>
+      <p>
+        Verantwortliche Stelle: {brief?.business?.legal_name ?? brand}, {brief?.contact?.address}.
+      </p>
+      <p>
+        Für Produktivsites wird hier eine projektspezifische Datenschutzerklärung eingesetzt.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

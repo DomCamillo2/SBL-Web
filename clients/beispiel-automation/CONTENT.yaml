@@ -1,0 +1,164 @@
+slug: beispiel-automation
+locale: de-DE
+brand_voice_notes: >
+  Konkret, ruhig, lokal. Keine KI-Hype-Floskeln. Lieber ein echter Ablauf
+  als drei abstrakte Benefits.
+
+forbidden_phrases:
+  - Unlock the power
+  - Seamless
+  - Cutting-edge
+  - Next-level
+  - Revolutionize
+  - Ganzheitliche Lösungen
+  - Mit Leidenschaft und Innovation
+
+seo_defaults:
+  site_name: Beispiel Automation
+  title_suffix: " | Beispiel Automation"
+  default_description: >
+    Prozessautomatisierung für KMU in der Region Tübingen–Stuttgart —
+    mit klarer menschlicher Kontrolle.
+
+pages:
+  - id: home
+    path: /
+    title: Automation mit Menschenverstand
+    meta_description: >
+      Weniger manuelle Arbeit in Verwaltung, HR und Reporting.
+      Kostenlosen Prozess-Check anfragen.
+    sections:
+      - id: hero
+        job: Marke + eine Aussage + eine Handlung
+        headline: Automation mit Menschenverstand.
+        support: Weniger manuelle Arbeit. Mehr Zeit fürs Kerngeschäft.
+        cta_label: Prozess kostenlos prüfen lassen
+        cta_href: /kontakt
+      - id: experience
+        job: Glaubwürdigkeit aus realen Kontexten
+        eyebrow: Praxiserfahrung
+        headline: Erfahrung aus realen Unternehmenskontexten
+        support: Praktische Erfahrung aus Software, Industrie und Professional Services.
+        items:
+          - title: Professional Services
+            body: Projektmanagement, Customer Experience und Datenanalyse.
+            meta: Beratungs- und Analysekontexte
+          - title: Industrie & Software
+            body: Prozessautomatisierung, Data Science und Workflow-Optimierung.
+            meta: Operative Systeme
+          - title: Automotive & Energie
+            body: CRM-Implementierung, Workflow-Automatisierung und HR-Prozesse.
+            meta: Wiederkehrende Verwaltungsabläufe
+      - id: pain_points
+        job: Zeigen wo im Alltag Zeit verloren geht
+        eyebrow: Ausgangspunkt
+        headline: Wo im Alltag Zeit verloren geht
+        support: Wir beginnen nicht mit einem Tool, sondern mit einem konkreten Ablauf.
+        items:
+          - title: Daten werden mehrfach übertragen
+            body: Informationen aus E-Mails und Listen landen manuell in anderen Systemen.
+          - title: Reports entstehen per Hand
+            body: Dieselben Daten werden regelmäßig exportiert, geprüft und verteilt.
+          - title: Wissen ist schwer zugänglich
+            body: Abläufe und Antworten liegen verteilt in Köpfen, Ordnern und Chats.
+      - id: topics
+        job: Leistungsbereiche navigierbar machen
+        eyebrow: Themen
+        headline: Bereiche, in denen wir Prozesse automatisieren
+        support: Klar abgegrenzte Abläufe in Ihrer bestehenden IT.
+        items:
+          - title: HR & Recruiting
+            body: Wiederkehrende Aufgaben rund um Bewerbungen strukturiert automatisieren.
+          - title: Verwaltung & CRM
+            body: Anfragen und Kundendaten verlässlich zwischen Systemen weitergeben.
+          - title: Reporting & Daten
+            body: Daten automatisch zusammenführen, prüfen und aufbereiten.
+      - id: examples
+        job: Typische Startprozesse konkretisieren
+        eyebrow: Beispiele
+        headline: Typische Prozesse, mit denen wir starten
+        support: Keine Standardsoftware, sondern klar abgegrenzte Abläufe mit Kontrolle.
+        items:
+          - title: HR und Recruiting
+            body: Informationen strukturieren und administrative Schritte koordinieren.
+          - title: Verwaltung und CRM
+            body: Anfragen erfassen, Datensätze aktualisieren, Aufgaben zuordnen.
+          - title: Reporting und Daten
+            body: Daten zusammenführen und wiederkehrende Berichtsentwürfe erstellen.
+      - id: method
+        job: Phasen mit klarem Ergebnis erklären
+        eyebrow: Vorgehen
+        headline: Von der ersten Prüfung bis zur geregelten Übergabe.
+        support: Erst wenn der Pilot im Alltag funktioniert, binden wir Systeme an.
+        items:
+          - title: Prozess prüfen
+            body: Realen Ablauf mit Systemen, Daten und Ausnahmen betrachten.
+            meta: Ergebnis — Entscheidung, ob sich ein Pilot lohnt
+          - title: Pilot testen
+            body: Abgegrenzter Teil mit typischen Fällen und echten Ausnahmen.
+            meta: Ergebnis — messbare Resultate und bekannte Grenzen
+          - title: Systeme anbinden
+            body: Bestätigte Schritte mit vorhandenen Systemen und Freigaben verbinden.
+            meta: Ergebnis — dokumentierte Schnittstellen und Prüfstellen
+          - title: Betrieb übergeben
+            body: Team, Kontrollen und Verantwortliche auf den Betrieb vorbereiten.
+            meta: Ergebnis — geschulter Betrieb mit klarer Zuständigkeit
+      - id: team
+        job: Menschen hinter dem Angebot zeigen
+        eyebrow: Über uns
+        headline: Wer hinter dem Angebot steckt
+        support: Drei Schwerpunkte — Prozesse verstehen, Workflows bauen, Nutzung absichern.
+        items:
+          - title: AI Adoption & Workflow Automation
+            body: Verbindet Human-AI Interaction mit CRM- und HR-Prozessen.
+          - title: Power Platform, AI & Process Automation
+            body: Setzt Automatisierung in praxisnahen Projekten um.
+          - title: Project Management & Customer Experience
+            body: Verbindet Projektsteuerung mit nutzerorientierter Gestaltung.
+      - id: closing_cta
+        job: Eine nächste Handlung
+        headline: Welcher Prozess kostet Ihr Team regelmäßig Zeit?
+        support: Im kostenlosen Check ordnen wir Nutzen, Aufwand und Risiken ein.
+        cta_label: Prozess kostenlos prüfen lassen
+        cta_href: /kontakt
+
+  - id: method
+    path: /vorgehen
+    title: Klein starten. Wirkung prüfen. Sauber übergeben.
+    meta_description: >
+      Phasen vom Automation Check bis zur Übergabe — mit Kontrolle und klaren Ergebnissen.
+    sections:
+      - id: method_detail
+        job: Phasen vertiefen
+        eyebrow: Vom Prozessbild zur Übergabe
+        headline: Jede Phase liefert ein konkretes Ergebnis
+        support: Ein Pilot soll zeigen, ob ein Workflow im Arbeitsalltag sinnvoll funktioniert.
+        items:
+          - title: Prozess prüfen
+            body: Wiederkehrenden Ablauf, Systeme und Risiken betrachten.
+            meta: Ergebnis — Einschätzung und nächster Schritt
+          - title: Pilot umsetzen
+            body: Abgegrenzten Workflow mit späteren Nutzenden testen.
+            meta: Ergebnis — funktionsfähiger Pilot mit Erfolgskriterien
+          - title: In Systeme integrieren
+            body: Kontrolliert an abgestimmte Systeme und Freigaben anbinden.
+            meta: Ergebnis — dokumentierte Datenflüsse
+          - title: Schulen und übergeben
+            body: Ablauf erklären und geregelt in den Alltag übergeben.
+            meta: Ergebnis — Schulung und klare Zuständigkeit
+      - id: closing_cta
+        job: Abschluss-Handlung
+        headline: Welcher Prozess kostet Ihr Team regelmäßig Zeit?
+        support: Im kostenlosen Check ordnen wir Nutzen, Aufwand und Risiken ein.
+        cta_label: Prozess kostenlos prüfen lassen
+        cta_href: /kontakt
+
+  - id: contact
+    path: /kontakt
+    title: Kontakt
+    meta_description: Prozess-Check anfragen — Beispiel Automation, Region Tübingen–Stuttgart.
+    sections:
+      - id: contact_intro
+        job: Anfrage ermöglichen
+        headline: Prozess kostenlos prüfen lassen
+        support: Beschreiben Sie einen wiederkehrenden Ablauf — wir melden uns mit einer Einschätzung.

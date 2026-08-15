@@ -1,0 +1,17 @@
+{
+  "name": "@sbl-web/archetype-service-local-b2b",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./styles.css": "./src/styles/archetype.css",
+    "./components/*": "./src/components/*",
+    "./lib/*": "./src/lib/*"
+  },
+  "dependencies": {
+    "yaml": "^2.8.0"
+  },
+  "peerDependencies": {
+    "astro": "^5.0.0"
+  }
+}

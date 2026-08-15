@@ -1,0 +1,12 @@
+---
+const { section } = Astro.props;
+---
+<section class="sbl-cta-band" id={section.id}>
+  <div class="sbl-shell">
+    <h2>{section.headline}</h2>
+    {section.support && <p class="sbl-lead">{section.support}</p>}
+    {section.cta_label && section.cta_href && (
+      <a class="sbl-btn" href={section.cta_href}>{section.cta_label}</a>
+    )}
+  </div>
+</section>

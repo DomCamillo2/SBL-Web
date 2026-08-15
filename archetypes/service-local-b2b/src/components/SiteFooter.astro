@@ -1,0 +1,18 @@
+---
+const { brand, email, phone, impressumHref = "/impressum", privacyHref = "/datenschutz" } = Astro.props;
+const year = new Date().getFullYear();
+---
+<footer class="sbl-footer">
+  <div class="sbl-shell sbl-footer__grid">
+    <div>
+      <strong>{brand}</strong>
+      <div>{email}{phone ? ` · ${phone}` : ""}</div>
+      <div>© {year}</div>
+    </div>
+    <div>
+      <a href={impressumHref}>Impressum</a>
+      {" · "}
+      <a href={privacyHref}>Datenschutz</a>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,27 @@
+---
+const { brand, section, region, processHint } = Astro.props;
+const heroImage = Astro.props.heroImage;
+---
+<section class="sbl-hero" aria-label="Einstieg">
+  <div
+    class="sbl-hero__visual"
+    style={heroImage ? `--sbl-hero-image: url('${heroImage}')` : undefined}
+    aria-hidden="true"
+  ></div>
+  <div class="sbl-shell">
+    <p class="sbl-hero__brand">{brand}</p>
+    <h1 class="sbl-hero__headline">{section.headline}</h1>
+    {section.support && <p class="sbl-hero__support">{section.support}</p>}
+    <div class="sbl-hero__cta">
+      {section.cta_label && section.cta_href && (
+        <a class="sbl-btn" href={section.cta_href}>{section.cta_label}</a>
+      )}
+    </div>
+    {(region || processHint) && (
+      <div class="sbl-meta">
+        {region && <span>{region}</span>}
+        {processHint && <span>{processHint}</span>}
+      </div>
+    )}
+  </div>
+</section>

@@ -2,32 +2,51 @@
 
 Website-Factory für KMU und lokale Unternehmen: strukturierte Pipeline statt Vibe Coding, Anti-AI-Slop-Gates, Docker-Hosting.
 
-## Start here
+## Quick start (Demo)
 
-**Deep Research & Architektur:** [docs/research/kmu-website-pipeline.md](docs/research/kmu-website-pipeline.md)
+```bash
+pnpm install
+pnpm anti-slop:demo   # score 0 = clean
+pnpm dev:demo         # http://localhost:4321
+pnpm build:demo
+```
+
+Demo-Client: [`clients/beispiel-automation`](clients/beispiel-automation) — Archetyp `service-local-b2b`, content-driven (BRIEF → tokens → CONTENT → Astro).
+
+## Pipeline
+
+```
+Brief → Design Lock → Content Lock → Constrained Build → Anti-Slop QA → Docker Ship
+```
+
+Deep Research: [docs/research/kmu-website-pipeline.md](docs/research/kmu-website-pipeline.md)
 
 | Artefakt | Pfad |
 |----------|------|
 | Pipeline-Research | `docs/research/kmu-website-pipeline.md` |
-| Anti-Slop Lint Spec | `docs/research/anti-slop-lint-spec.md` |
-| Brief Schema | `docs/schemas/brief.schema.json` |
-| Content Schema | `docs/schemas/content.schema.json` |
-| Tokens Schema | `docs/schemas/design-tokens.schema.json` |
-| Brief-Beispiel | `templates/client-brief/BRIEF.example.yaml` |
-| DESIGN.md Template | `templates/client-brief/DESIGN.template.md` |
-| MSB-Referenz-Mapping | `examples/msb-ai-reference/STRUCTURE.md` |
-| Docker-Skizze | `infra/docker-sketch/` |
+| Anti-Slop CLI | `packages/anti-slop` (`pnpm anti-slop:demo`) |
+| Archetyp service-local-b2b | `archetypes/service-local-b2b` |
+| Demo-Client | `clients/beispiel-automation` |
+| Brief/Content/Token Schemas | `docs/schemas/` |
+| Docker/Traefik Skizze | `infra/docker-sketch/` |
+| Neuer Client | `infra/scripts/new-client.sh <slug>` |
 | Agent-Regeln | `AGENTS.md` |
 
-## Kurz: Factory vs. Vibe Coding
+## Neuen Client anlegen
 
+```bash
+./infra/scripts/new-client.sh meine-firma
+# BRIEF / DESIGN / tokens / CONTENT ausfüllen und locken
+pnpm install
+node packages/anti-slop/src/cli.js clients/meine-firma
+pnpm --filter @sbl-web/meine-firma dev
 ```
-Vibe Coding:  Prompt → fertige Seite → sieht aus wie jede AI-Site
-Factory:      Brief → Design Lock → Content Lock → Build → QA → Docker
+
+## Docker (auf dem Server)
+
+```bash
+docker network create sbl-proxy
+# Traefik edge: infra/docker-sketch/traefik.docker-compose.yml
+docker build -f clients/beispiel-automation/site/Dockerfile -t sbl-web/beispiel-automation .
+docker compose -f clients/beispiel-automation/docker-compose.yml up -d
 ```
-
-## Nächster Implementierungs-Schritt
-
-1. Archetyp `service-local-b2b` (Astro) scaffolden  
-2. `anti-slop` Script gegen Tokens/Content  
-3. Traefik auf dem Server mit `infra/docker-sketch`  

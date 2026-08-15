@@ -1,0 +1,21 @@
+---
+const { section } = Astro.props;
+---
+<section class="sbl-section" id={section.id}>
+  <div class="sbl-shell">
+    {section.eyebrow && <p class="sbl-kicker">{section.eyebrow}</p>}
+    <h2>{section.headline}</h2>
+    {section.support && <p class="sbl-lead">{section.support}</p>}
+    {section.items?.length > 0 && (
+      <div class="sbl-phases">
+        {section.items.map((item) => (
+          <article class="sbl-phase">
+            <h3>{item.title}</h3>
+            {item.body && <p>{item.body}</p>}
+            {item.meta && <p class="sbl-meta-line">{item.meta}</p>}
+          </article>
+        ))}
+      </div>
+    )}
+  </div>
+</section>

@@ -1,0 +1,23 @@
+{
+  "name": "sbl-web",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.33.3",
+  "scripts": {
+    "dev:demo": "pnpm --filter @sbl-web/beispiel-automation dev",
+    "build:demo": "pnpm --filter @sbl-web/beispiel-automation build",
+    "preview:demo": "pnpm --filter @sbl-web/beispiel-automation preview",
+    "anti-slop": "node packages/anti-slop/src/cli.js",
+    "anti-slop:demo": "node packages/anti-slop/src/cli.js clients/beispiel-automation",
+    "check:demo": "pnpm anti-slop:demo && pnpm build:demo"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "sharp"
+    ]
+  }
+}

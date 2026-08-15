@@ -1,0 +1,46 @@
+---
+import BaseLayout from "@sbl-web/archetype-service-local-b2b/components/BaseLayout.astro";
+import SectionPhases from "@sbl-web/archetype-service-local-b2b/components/SectionPhases.astro";
+import ClosingCta from "@sbl-web/archetype-service-local-b2b/components/ClosingCta.astro";
+import "@sbl-web/archetype-service-local-b2b/styles.css";
+import {
+  getPage,
+  googleFontsHref,
+  loadBrief,
+  loadContent,
+  loadTokens,
+  tokensToCssVars,
+} from "@sbl-web/archetype-service-local-b2b/lib/content.js";
+
+const content = loadContent();
+const tokens = loadTokens();
+const brief = loadBrief();
+const page = getPage(content, "method");
+const brand = content.seo_defaults.site_name;
+const section = page.sections?.[0];
+const closing = page.sections?.find((s) => s.id === "closing_cta");
+---
+
+<BaseLayout
+  title={`${page.title}${content.seo_defaults.title_suffix}`}
+  description={page.meta_description}
+  brand={brand}
+  fontsHref={googleFontsHref(tokens)}
+  cssVars={tokensToCssVars(tokens)}
+  email={brief?.contact?.email}
+  phone={brief?.contact?.phone}
+  navLinks={[
+    { href: "/", label: "Start" },
+    { href: "/kontakt", label: "Kontakt" },
+  ]}
+>
+  <section class="sbl-section">
+    <div class="sbl-shell sbl-legal">
+      <p class="sbl-kicker">Vorgehen</p>
+      <h1>{page.title}</h1>
+      <p class="sbl-lead">{page.meta_description}</p>
+    </div>
+  </section>
+  {section && <SectionPhases section={section} />}
+  {closing && <ClosingCta section={closing} />}
+</BaseLayout>

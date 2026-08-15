@@ -1,0 +1,40 @@
+---
+import SiteHeader from "./SiteHeader.astro";
+import SiteFooter from "./SiteFooter.astro";
+
+const {
+  title,
+  description,
+  brand,
+  fontsHref,
+  cssVars = {},
+  navLinks = [],
+  email,
+  phone,
+} = Astro.props;
+
+const style = Object.entries(cssVars)
+  .filter(([, v]) => Boolean(v))
+  .map(([k, v]) => `${k}:${v}`)
+  .join(";");
+---
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    {fontsHref && <link rel="stylesheet" href={fontsHref} />}
+    <slot name="head" />
+  </head>
+  <body style={style}>
+    <SiteHeader brand={brand} links={navLinks} />
+    <main>
+      <slot />
+    </main>
+    <SiteFooter brand={brand} email={email} phone={phone} />
+  </body>
+</html>
