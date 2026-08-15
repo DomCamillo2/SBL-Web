@@ -1,4 +1,5 @@
 import { defineConfig } from "astro/config";
+import sitemap from "@astrojs/sitemap";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -10,8 +11,10 @@ const uiRoot = path.resolve(siteDir, "../../../packages/ui");
 process.env.SBL_CLIENT_ROOT = clientRoot;
 
 export default defineConfig({
+  site: "https://example.com",
   output: "static",
   compressHTML: true,
+  integrations: [sitemap()],
   vite: {
     resolve: {
       alias: {
@@ -23,6 +26,10 @@ export default defineConfig({
         "@sbl-web/archetype-service-local-b2b/components": path.join(
           archetypeRoot,
           "src/components",
+        ),
+        "@sbl-web/archetype-service-local-b2b/routes": path.join(
+          archetypeRoot,
+          "src/routes",
         ),
         "@sbl-web/ui/css": path.join(uiRoot, "src/css"),
         "@sbl-web/ui/js": path.join(uiRoot, "src/js"),

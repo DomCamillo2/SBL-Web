@@ -1,12 +1,32 @@
 import {
   absoluteUrl,
   buildLocalBusinessSchema,
-  googleFontsHref,
   loadBrief,
   loadContent,
   loadTokens,
   tokensToCssVars,
 } from "./content.js";
+
+function navFromBrief(brief, content) {
+  const pages = brief?.pages ?? content?.pages ?? [];
+  const links = [];
+  for (const p of pages) {
+    if (p.id === "home" || p.path === "/") continue;
+    if (p.id === "thanks" || p.path === "/danke") continue;
+    const href = p.path || `/${p.id}`;
+    const label = p.title || p.id;
+    if (href && label) links.push({ href, label });
+  }
+  if (!links.some((l) => l.href.includes("kontakt"))) {
+    links.push({ href: "/kontakt", label: "Kontakt" });
+  }
+  // Prefer FAQ anchor on home when present
+  const home = content?.pages?.find((p) => p.id === "home");
+  if (home?.sections?.some((s) => s.id === "faq")) {
+    links.unshift({ href: "/#faq", label: "FAQ" });
+  }
+  return links.slice(0, 5);
+}
 
 export function createPageShell(options = {}) {
   const content = loadContent();
@@ -29,7 +49,6 @@ export function createPageShell(options = {}) {
     launch,
     layout: {
       brand,
-      fontsHref: googleFontsHref(tokens),
       cssVars: tokensToCssVars(tokens),
       email: brief?.contact?.email,
       phone: brief?.contact?.phone,
@@ -44,11 +63,7 @@ export function createPageShell(options = {}) {
               href: "/kontakt",
             },
       analytics: brief?.launch?.analytics,
-      navLinks: options.navLinks ?? [
-        { href: "/#faq", label: "FAQ" },
-        { href: "/vorgehen", label: "Vorgehen" },
-        { href: "/kontakt", label: "Kontakt" },
-      ],
+      navLinks: options.navLinks ?? navFromBrief(brief, content),
     },
   };
 }

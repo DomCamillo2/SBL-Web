@@ -1,0 +1,38 @@
+---
+import BaseLayout from "../components/BaseLayout.astro";
+import "../styles/archetype.css";
+import { createPageShell } from "../lib/pageShell.js";
+
+const { content, brief, brand, layout } = createPageShell({
+  path: "/404",
+  includeSchema: false,
+  navLinks: [
+    { href: "/", label: "Start" },
+    { href: "/kontakt", label: "Kontakt" },
+  ],
+});
+---
+
+<BaseLayout
+  title={`Seite nicht gefunden${content.seo_defaults.title_suffix}`}
+  description="Die angeforderte Seite gibt es nicht."
+  {...layout}
+  noIndex={true}
+>
+  <section class="sbl-section">
+    <div class="sbl-shell sbl-legal">
+      <p class="sbl-kicker">404</p>
+      <h1>Diese Seite gibt es nicht.</h1>
+      <p class="sbl-lead">
+        Der Link ist veraltet oder die Adresse enthält einen Tippfehler. Zurück zu {brand} —
+        oder schreiben Sie uns direkt.
+      </p>
+      <p style="margin-top:1.5rem; display:flex; gap:0.75rem; flex-wrap:wrap;">
+        <a class="sbl-btn" href="/">Zur Startseite</a>
+        <a class="sbl-btn sbl-btn--ghost" href="/kontakt">
+          {brief?.contact?.cta_label ?? "Kontakt"}
+        </a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>

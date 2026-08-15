@@ -286,9 +286,15 @@ export async function run(clientDir) {
 
   if (launch.breadcrumbs !== false && (await exists(sitePages))) {
     const pageFiles = await collectFiles(sitePages, [".astro"]);
-    const pageBlob = (await Promise.all(pageFiles.map((f) => fs.readFile(f, "utf8")))).join(
+    let pageBlob = (await Promise.all(pageFiles.map((f) => fs.readFile(f, "utf8")))).join(
       "\n",
     );
+    // Thin wrappers import archetype routes — also scan archetype routes
+    const archRoutes = path.resolve(root, "../../archetypes/service-local-b2b/src/routes");
+    if (await exists(archRoutes)) {
+      const routeFiles = await collectFiles(archRoutes, [".astro"]);
+      pageBlob += (await Promise.all(routeFiles.map((f) => fs.readFile(f, "utf8")))).join("\n");
+    }
     if (!/Breadcrumbs/.test(pageBlob)) {
       push("warn", "LC05", "Breadcrumbs not used on site pages", sitePages);
     }

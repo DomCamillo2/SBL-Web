@@ -44,12 +44,14 @@ If locks are missing (`design.lock` / content lock fields), **stop and ask for l
 
 ## Build sequence
 
-1. Validate brief against `docs/schemas/brief.schema.json`
-2. Confirm design + content locks
-3. Scaffold from archetype
-4. Implement against tokens only
-5. Run anti-slop checks (`docs/research/anti-slop-lint-spec.md`)
-6. Produce static build for Docker/nginx
+1. `pnpm factory new <slug>` (or fill existing BRIEF)
+2. `pnpm factory draft <slug>` then human-edit CONTENT
+3. Set design/content locks in BRIEF
+4. `pnpm factory check <slug>` (schema + anti-slop + launch + legal)
+5. `pnpm --filter @sbl-web/<slug> build`
+6. Docker/Traefik ship
+
+Do not fork archetype pages — thin wrappers only. Put UI changes in `archetypes/` or `packages/ui`.
 
 ## Reference
 

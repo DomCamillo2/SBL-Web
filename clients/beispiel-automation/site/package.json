@@ -10,6 +10,7 @@
     "anti-slop": "pnpm --filter @sbl-web/anti-slop start -- ../.."
   },
   "dependencies": {
+    "@astrojs/sitemap": "^3.7.3",
     "@sbl-web/archetype-service-local-b2b": "workspace:*",
     "@sbl-web/ui": "workspace:*",
     "astro": "^5.13.2"

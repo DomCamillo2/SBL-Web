@@ -6,17 +6,23 @@ Website-Factory für KMU und lokale Unternehmen: strukturierte Pipeline statt Vi
 
 ```bash
 pnpm install
-pnpm anti-slop:demo   # score 0 = clean
-pnpm dev:demo         # http://localhost:4321
-pnpm build:demo
+pnpm factory check beispiel-automation
+pnpm dev:demo
 ```
 
-Demo-Client: [`clients/beispiel-automation`](clients/beispiel-automation) — Archetyp `service-local-b2b`, content-driven (BRIEF → tokens → CONTENT → Astro).
+## Neue Site (wenig Handarbeit)
 
-## Anti-slop UI kit (vendored MIT)
+```bash
+pnpm factory new meine-firma --domain=meine-firma.de
+# BRIEF.yaml + LEGAL-/Launch-Fragen ausfüllen
+pnpm factory draft meine-firma
+# CONTENT prüfen, tokens/DESIGN locken
+pnpm factory check meine-firma
+pnpm install
+pnpm --filter @sbl-web/meine-firma dev
+```
 
-Commercially usable primitives (reveal, panels, definition lists, motion tokens): [`packages/ui`](packages/ui)  
-License matrix: [`docs/research/anti-slop-vendors.md`](docs/research/anti-slop-vendors.md)
+Audit: [`docs/research/pipeline-audit.md`](docs/research/pipeline-audit.md)
 
 ## Pipeline
 

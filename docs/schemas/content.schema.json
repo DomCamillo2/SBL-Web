@@ -7,6 +7,10 @@
   "properties": {
     "slug": { "type": "string" },
     "locale": { "type": "string", "default": "de-DE" },
+    "draft": {
+      "type": "boolean",
+      "description": "true while factory draft is unreviewed"
+    },
     "brand_voice_notes": { "type": "string" },
     "forbidden_phrases": {
       "type": "array",

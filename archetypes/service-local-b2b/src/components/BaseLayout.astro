@@ -1,6 +1,7 @@
 ---
 import SiteHeader from "./SiteHeader.astro";
 import SiteFooter from "./SiteFooter.astro";
+import Fonts from "./Fonts.astro";
 import StickyMobileCta from "@sbl-web/ui/components/StickyMobileCta.astro";
 import "@sbl-web/ui/css/ui.css";
 
@@ -8,7 +9,6 @@ const {
   title,
   description,
   brand,
-  fontsHref,
   cssVars = {},
   navLinks = [],
   email,
@@ -43,9 +43,7 @@ const style = Object.entries(cssVars)
     {ogImage && <meta property="og:image" content={ogImage} />}
     <meta name="twitter:card" content="summary_large_image" />
     {ogImage && <meta name="twitter:image" content={ogImage} />}
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    {fontsHref && <link rel="stylesheet" href={fontsHref} />}
+    <Fonts />
     {jsonLd && (
       <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     )}

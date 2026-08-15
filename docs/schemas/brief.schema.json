@@ -317,6 +317,10 @@
         "production_domain": { "type": "string" },
         "need_forms": { "type": "boolean", "default": true },
         "need_cms": { "type": "boolean", "default": false },
+        "form_endpoint": {
+          "type": "string",
+          "description": "POST target for contact form (Formspree/own API). If omitted, demo GET /danke."
+        },
         "site_url": {
           "type": "string",
           "description": "Canonical production URL for OG + schema"
@@ -326,10 +330,10 @@
     "locks": {
       "type": "object",
       "properties": {
-        "design_locked_at": { "type": "string", "format": "date-time" },
-        "content_locked_at": { "type": "string", "format": "date-time" },
-        "launch_checked_at": { "type": "string", "format": "date-time" },
-        "approved_by": { "type": "string" }
+        "design_locked_at": { "type": ["string", "null"], "format": "date-time" },
+        "content_locked_at": { "type": ["string", "null"], "format": "date-time" },
+        "launch_checked_at": { "type": ["string", "null"], "format": "date-time" },
+        "approved_by": { "type": ["string", "null"] }
       }
     }
   },

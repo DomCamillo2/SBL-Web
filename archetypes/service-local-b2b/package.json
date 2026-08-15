@@ -6,9 +6,13 @@
   "exports": {
     "./styles.css": "./src/styles/archetype.css",
     "./components/*": "./src/components/*",
+    "./routes/*": "./src/routes/*",
     "./lib/*": "./src/lib/*"
   },
   "dependencies": {
+    "@fontsource/ibm-plex-mono": "^5.3.0",
+    "@fontsource/source-sans-3": "^5.3.0",
+    "@fontsource/syne": "^5.3.0",
     "@sbl-web/ui": "workspace:*",
     "yaml": "^2.8.0"
   },

@@ -35,9 +35,16 @@ Content Lock → Build → Anti-Slop → Launch Checklist → Staging → Go-Liv
 | LC19 | Team photo path or honest skip flag |
 | LC20 | Case studies only if provided (no invented logos) |
 
-## Menschlich prüfen
+## Legal DE lint (LG01–LG07)
 
-- Ton der 404 und Danke-Seite
-- Ob Reviews/Cases wirklich freigegeben sind
-- Analytics-Einwilligung (DSGVO)
-- Sticky CTA verdeckt keinen Content
+| ID | Check |
+|----|-------|
+| LG01 | No current `§ 5 TMG` imprint citation (use DDG) |
+| LG02 | Prefer TDDDG over bare TTDSG in privacy copy |
+| LG03 | No EU ODR/OS platform links |
+| LG04 | Regulated profession fields complete when enabled |
+| LG05 | HWG review + client_approved_texts for medical marketing |
+| LG06 | BFSG statement if in scope |
+| LG07 | Warn if production domain set without approved legal texts |
+
+See `docs/research/legal-de-branchen.md`.

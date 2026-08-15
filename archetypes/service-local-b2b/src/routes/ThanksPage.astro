@@ -1,0 +1,44 @@
+---
+import BaseLayout from "../components/BaseLayout.astro";
+import Breadcrumbs from "@sbl-web/ui/components/Breadcrumbs.astro";
+import "../styles/archetype.css";
+import { getPage } from "../lib/content.js";
+import { createPageShell, pageTitle } from "../lib/pageShell.js";
+
+const { content, brief, layout } = createPageShell({
+  path: "/danke",
+  includeSchema: false,
+  navLinks: [{ href: "/", label: "Start" }],
+});
+const page = getPage(content, "thanks");
+const section = page.sections?.[0];
+---
+
+<BaseLayout
+  title={pageTitle(content, page)}
+  description={page.meta_description}
+  {...layout}
+  noIndex={true}
+>
+  <section class="sbl-section">
+    <div class="sbl-shell sbl-legal">
+      <Breadcrumbs
+        items={[
+          { label: "Start", href: "/" },
+          { label: "Kontakt", href: "/kontakt" },
+          { label: "Danke" },
+        ]}
+      />
+      <h1>{section?.headline ?? page.title}</h1>
+      <p class="sbl-lead">{section?.support}</p>
+      {brief?.contact?.response_time_promise && (
+        <p class="sbl-meta">{brief.contact.response_time_promise}</p>
+      )}
+      {section?.cta_href && (
+        <p style="margin-top:1.5rem">
+          <a class="sbl-btn" href={section.cta_href}>{section.cta_label}</a>
+        </p>
+      )}
+    </div>
+  </section>
+</BaseLayout>

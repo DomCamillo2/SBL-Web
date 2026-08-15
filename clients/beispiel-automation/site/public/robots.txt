@@ -1,6 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://example.com/sitemap.xml
-
-# Staging should use: Disallow: /
+Sitemap: https://example.com/sitemap-index.xml
