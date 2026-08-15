@@ -1,0 +1,14 @@
+---
+/**
+ * Wrap content for IntersectionObserver reveal (anti-slop-templates pattern).
+ * Prefer max 2–3 revealed blocks per page — not every section.
+ */
+const { delay = 0, variant = "rise" } = Astro.props;
+const delayAttr = delay > 0 ? String(delay) : undefined;
+---
+<div
+  data-reveal={variant === "wipe" ? "wipe" : true}
+  data-reveal-delay={delayAttr}
+>
+  <slot />
+</div>

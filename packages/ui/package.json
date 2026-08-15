@@ -1,0 +1,16 @@
+{
+  "name": "@sbl-web/ui",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Anti-slop UI primitives (motion, reveal, panels) for SBL-Web — vendored/adapted from MIT sources",
+  "exports": {
+    "./css/*": "./src/css/*",
+    "./js/*": "./src/js/*",
+    "./components/*": "./src/components/*",
+    "./assets/*": "./src/assets/*"
+  },
+  "peerDependencies": {
+    "astro": "^5.0.0"
+  }
+}

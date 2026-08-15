@@ -9,6 +9,7 @@
     "./lib/*": "./src/lib/*"
   },
   "dependencies": {
+    "@sbl-web/ui": "workspace:*",
     "yaml": "^2.8.0"
   },
   "peerDependencies": {

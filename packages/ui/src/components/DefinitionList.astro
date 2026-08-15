@@ -1,0 +1,18 @@
+---
+/**
+ * Definition-list layout — preferred over equal icon+title+text cards.
+ * items: { title, body, meta? }[]
+ */
+const { items = [], class: className = "" } = Astro.props;
+---
+<dl class:list={["sbl-deflist", className]}>
+  {items.map((item) => (
+    <div>
+      <dt>{item.title}</dt>
+      <dd>
+        {item.body}
+        {item.meta && <div class="sbl-meta-line">{item.meta}</div>}
+      </dd>
+    </div>
+  ))}
+</dl>

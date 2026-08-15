@@ -1,5 +1,7 @@
 ---
-const { section } = Astro.props;
+import DefinitionList from "@sbl-web/ui/components/DefinitionList.astro";
+
+const { section, useDeflist = true } = Astro.props;
 ---
 <section class="sbl-section" id={section.id}>
   <div class="sbl-shell">
@@ -7,15 +9,19 @@ const { section } = Astro.props;
     <h2>{section.headline}</h2>
     {section.support && <p class="sbl-lead">{section.support}</p>}
     {section.items?.length > 0 && (
-      <div class="sbl-stack">
-        {section.items.map((item) => (
-          <article class="sbl-item">
-            <h3>{item.title}</h3>
-            {item.body && <p>{item.body}</p>}
-            {item.meta && <p class="sbl-meta-line">{item.meta}</p>}
-          </article>
-        ))}
-      </div>
+      useDeflist ? (
+        <DefinitionList items={section.items} />
+      ) : (
+        <div class="sbl-stack">
+          {section.items.map((item) => (
+            <article class="sbl-item">
+              <h3>{item.title}</h3>
+              {item.body && <p>{item.body}</p>}
+              {item.meta && <p class="sbl-meta-line">{item.meta}</p>}
+            </article>
+          ))}
+        </div>
+      )
     )}
   </div>
 </section>

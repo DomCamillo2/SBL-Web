@@ -1,6 +1,7 @@
 ---
 import SiteHeader from "./SiteHeader.astro";
 import SiteFooter from "./SiteFooter.astro";
+import "@sbl-web/ui/css/ui.css";
 
 const {
   title,
@@ -36,5 +37,8 @@ const style = Object.entries(cssVars)
       <slot />
     </main>
     <SiteFooter brand={brand} email={email} phone={phone} />
+    <script>
+      import "@sbl-web/ui/js/reveal.js";
+    </script>
   </body>
 </html>

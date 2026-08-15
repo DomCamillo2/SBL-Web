@@ -1,0 +1,28 @@
+/* Adapted from Cuuper22/anti-slop-design (MIT) — motion-tokens.css */
+
+:root {
+  --motion-duration-instant: 100ms;
+  --motion-duration-fast: 160ms;
+  --motion-duration-base: 240ms;
+  --motion-duration-slow: 360ms;
+  --motion-duration-slowest: 500ms;
+
+  --motion-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --motion-ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --motion-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --motion-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  --motion-hover: var(--motion-duration-fast) var(--motion-ease-standard);
+  --motion-appear: var(--motion-duration-base) var(--motion-ease-out);
+  --motion-exit: var(--motion-duration-fast) var(--motion-ease-in);
+
+  /* Hallmark-aligned aliases */
+  --ease-out: var(--motion-ease-out);
+  --ease-in: var(--motion-ease-in);
+  --ease-in-out: var(--motion-ease-in-out);
+  --ease-standard: var(--motion-ease-standard);
+}
+
+.motion-stagger {
+  animation-delay: calc(var(--i, 0) * 80ms);
+}

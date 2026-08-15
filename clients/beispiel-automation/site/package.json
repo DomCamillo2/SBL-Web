@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@sbl-web/archetype-service-local-b2b": "workspace:*",
+    "@sbl-web/ui": "workspace:*",
     "astro": "^5.13.2"
   }
 }

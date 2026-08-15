@@ -1,7 +1,7 @@
 ---
 const { section } = Astro.props;
 ---
-<section class="sbl-section" id={section.id}>
+<section class="sbl-section" id={section.id} data-reveal>
   <div class="sbl-shell">
     {section.eyebrow && <p class="sbl-kicker">{section.eyebrow}</p>}
     <h2>{section.headline}</h2>

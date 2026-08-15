@@ -1,0 +1,11 @@
+---
+const { class: className = "" } = Astro.props;
+---
+<div class:list={["sbl-split-5-3", className]}>
+  <div class="sbl-split-5-3__main">
+    <slot name="main" />
+  </div>
+  <aside class="sbl-split-5-3__aside">
+    <slot name="aside" />
+  </aside>
+</div>

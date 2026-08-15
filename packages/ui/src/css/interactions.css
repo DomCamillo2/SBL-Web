@@ -1,0 +1,37 @@
+/* Microinteraction recipes adapted from Nutlope/hallmark (MIT) */
+
+.sbl-btn {
+  transition:
+    background-color var(--motion-duration-fast, 160ms) var(--motion-ease-out, cubic-bezier(0.16, 1, 0.3, 1)),
+    transform 100ms var(--motion-ease-out, cubic-bezier(0.16, 1, 0.3, 1)),
+    border-color var(--motion-duration-fast, 160ms) var(--motion-ease-out, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.sbl-btn:hover {
+  transform: translateY(-1.5px);
+}
+
+.sbl-btn:active {
+  transform: translateY(1px) scale(0.98);
+  transition-duration: 60ms;
+}
+
+.sbl-link-underline {
+  background-image: linear-gradient(var(--sbl-accent, #0d7a6f), var(--sbl-accent, #0d7a6f));
+  background-size: 0% 1.5px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  padding-bottom: 1px;
+  transition: background-size var(--motion-duration-base, 240ms) var(--motion-ease-out, cubic-bezier(0.16, 1, 0.3, 1));
+}
+.sbl-link-underline:hover {
+  background-size: 100% 1.5px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sbl-btn:hover,
+  .sbl-btn:active,
+  .sbl-panel:hover {
+    transform: none;
+  }
+}

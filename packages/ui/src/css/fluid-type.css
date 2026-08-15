@@ -1,0 +1,12 @@
+/* Adapted from Cuuper22/anti-slop-design (MIT) — fluid-type-scale.css */
+
+:root {
+  --step--2: clamp(0.69rem, 0.66rem + 0.18vw, 0.8rem);
+  --step--1: clamp(0.83rem, 0.78rem + 0.25vw, 1rem);
+  --step-0: clamp(1rem, 0.93rem + 0.33vw, 1.13rem);
+  --step-1: clamp(1.2rem, 1.1rem + 0.45vw, 1.41rem);
+  --step-2: clamp(1.44rem, 1.3rem + 0.63vw, 1.76rem);
+  --step-3: clamp(1.73rem, 1.54rem + 0.88vw, 2.2rem);
+  --step-4: clamp(2.07rem, 1.81rem + 1.23vw, 2.75rem);
+  --step-5: clamp(2.49rem, 2.13rem + 1.69vw, 3.43rem);
+}

@@ -28,10 +28,12 @@ If locks are missing (`design.lock` / content lock fields), **stop and ask for l
 - One composition in the first viewport: brand, one headline, one support sentence, one CTA group, one dominant visual
 - One job per section
 - Prefer real photography / place / product context
+- Prefer `@sbl-web/ui` primitives (`DefinitionList`, `AsymmetricSplit`, `Reveal`) over equal icon-card grids
 - Keep German copy concrete and local (city, region, real offer)
 - Respect `prefers-reduced-motion`
 - Style `::selection` and `:focus-visible`
 - Link Impressum + Datenschutz
+- Keep third-party MIT notices in `packages/ui/NOTICE.md` when adapting more code
 
 ## Build sequence
 

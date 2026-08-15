@@ -10,6 +10,9 @@ importers:
 
   archetypes/service-local-b2b:
     dependencies:
+      '@sbl-web/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
       astro:
         specifier: ^5.0.0
         version: 5.18.2(rollup@4.62.4)(typescript@5.9.3)(yaml@2.9.0)
@@ -22,6 +25,9 @@ importers:
       '@sbl-web/archetype-service-local-b2b':
         specifier: workspace:*
         version: link:../../../archetypes/service-local-b2b
+      '@sbl-web/ui':
+        specifier: workspace:*
+        version: link:../../../packages/ui
       astro:
         specifier: ^5.13.2
         version: 5.18.2(rollup@4.62.4)(typescript@5.9.3)(yaml@2.9.0)
@@ -31,6 +37,12 @@ importers:
       yaml:
         specifier: ^2.8.0
         version: 2.9.0
+
+  packages/ui:
+    dependencies:
+      astro:
+        specifier: ^5.0.0
+        version: 5.18.2(rollup@4.62.4)(typescript@5.9.3)(yaml@2.9.0)
 
 packages:
 

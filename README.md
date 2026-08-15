@@ -13,6 +13,11 @@ pnpm build:demo
 
 Demo-Client: [`clients/beispiel-automation`](clients/beispiel-automation) — Archetyp `service-local-b2b`, content-driven (BRIEF → tokens → CONTENT → Astro).
 
+## Anti-slop UI kit (vendored MIT)
+
+Commercially usable primitives (reveal, panels, definition lists, motion tokens): [`packages/ui`](packages/ui)  
+License matrix: [`docs/research/anti-slop-vendors.md`](docs/research/anti-slop-vendors.md)
+
 ## Pipeline
 
 ```

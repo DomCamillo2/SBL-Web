@@ -1,0 +1,48 @@
+/* Reveal pattern adapted from JasonColapietro/anti-slop-templates (MIT) */
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity var(--motion-duration-slow, 360ms) var(--motion-ease-out, cubic-bezier(0.16, 1, 0.3, 1)),
+    transform var(--motion-duration-slow, 360ms) var(--motion-ease-out, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+[data-reveal][data-reveal-delay="1"] {
+  transition-delay: 0.08s;
+}
+[data-reveal][data-reveal-delay="2"] {
+  transition-delay: 0.16s;
+}
+[data-reveal][data-reveal-delay="3"] {
+  transition-delay: 0.24s;
+}
+[data-reveal][data-reveal-delay="4"] {
+  transition-delay: 0.32s;
+}
+
+/* Clip wipe alternative — use sparingly (not on every section) */
+[data-reveal="wipe"] {
+  opacity: 1;
+  transform: none;
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path var(--motion-duration-slow, 360ms) var(--motion-ease-out, cubic-bezier(0.16, 1, 0.3, 1));
+}
+[data-reveal="wipe"].is-visible {
+  clip-path: inset(0 0 0 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal],
+  [data-reveal="wipe"] {
+    opacity: 1;
+    transform: none;
+    clip-path: none;
+    transition: none;
+  }
+}
