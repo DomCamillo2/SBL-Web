@@ -277,6 +277,8 @@ Agent-Instructions (im Repo):
 **Intake:** Die 20 Launch-Aspekte werden als Fragen im Brief (`launch:`) erfasst — nicht erst beim Go-Live improvisiert.  
 **Legal DE:** Branchen-Research + Intake unter [`legal-de-branchen.md`](./legal-de-branchen.md) und [`LEGAL-INTAKE.md`](../../templates/client-brief/LEGAL-INTAKE.md) (DDG, TDDDG, HWG, BFSG, …). Kein Rechtsrat.
 
+**Pflichtfragen (ein Fragebogen → BRIEF → Docker):** [`pflichtfragen-katalog.md`](./pflichtfragen-katalog.md) · YAML [`pflichtfragen.catalog.yaml`](./pflichtfragen.catalog.yaml) · Schema [`questionnaire.schema.json`](../schemas/questionnaire.schema.json).
+
 ### Phase 5 — Docker Hosting
 
 Ziel: Viele Kunden-Sites auf **einem Server**, isoliert, mit eigener Domain.

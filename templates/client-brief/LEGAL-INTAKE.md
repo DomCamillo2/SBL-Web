@@ -1,7 +1,8 @@
 # Legal Intake — Fragen vor Design Lock (DE)
 
 > Kein Rechtsrat. Antworten → `BRIEF.yaml` unter `legal` / `regulated_profession` / `launch.analytics`.  
-> Bei reglementierten Berufen und Shops: **Mandant liefert freigegebene Rechtstexte** oder Anwalt.
+> Bei reglementierten Berufen und Shops: **Mandant liefert freigegebene Rechtstexte** oder Anwalt.  
+> Master-Pflichtfragen (inkl. P2-Branchengates): [`docs/research/pflichtfragen-katalog.md`](../../docs/research/pflichtfragen-katalog.md).
 
 ## A. Basis (jede Site)
 

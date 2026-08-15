@@ -29,6 +29,7 @@ If locks are missing (`design.lock` / content lock fields), **stop and ask for l
 - One job per section
 - Prefer real photography / place / product context
 - Prefer `@sbl-web/ui` primitives (`DefinitionList`, `AsymmetricSplit`, `Reveal`) over equal icon-card grids
+- Prefer the master Pflichtfragen catalog (`docs/research/pflichtfragen-katalog.md` / `pflichtfragen.catalog.yaml`) — map answers into `BRIEF.yaml`
 - Collect the 20 launch intake answers into `BRIEF.yaml` → `launch` (see `templates/client-brief/INTAKE-QUESTIONS.md`)
 - Collect legal/branch intake into `BRIEF.yaml` → `legal` + `regulated_profession` (see `templates/client-brief/LEGAL-INTAKE.md`)
 - Never invent Impressum data, medical claims, or reviews; never cite repealed TMG as current law

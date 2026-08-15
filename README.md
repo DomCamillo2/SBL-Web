@@ -35,6 +35,8 @@ Deep Research: [docs/research/kmu-website-pipeline.md](docs/research/kmu-website
 | Artefakt | Pfad |
 |----------|------|
 | Pipeline-Research | `docs/research/kmu-website-pipeline.md` |
+| **Pflichtfragen-Katalog** | `docs/research/pflichtfragen-katalog.md` + `pflichtfragen.catalog.yaml` |
+| Fragebogen-Schema | `docs/schemas/questionnaire.schema.json` |
 | Anti-Slop CLI | `packages/anti-slop` (`pnpm anti-slop:demo`) |
 | Launch-Fragen (20) | `templates/client-brief/INTAKE-QUESTIONS.md` |
 | Legal DE (Branchen) | `docs/research/legal-de-branchen.md` |

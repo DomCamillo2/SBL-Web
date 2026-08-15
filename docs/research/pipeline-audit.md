@@ -25,6 +25,9 @@ pnpm factory new <slug>
   → BRIEF skeleton + tokens + thin Astro shell
 
 # Gespräch / Formular → BRIEF füllen (einzige echte Handarbeit + Assets)
+# Master-Fragen: docs/research/pflichtfragen-katalog.md (+ .catalog.yaml)
+# Antwort-Payload: docs/schemas/questionnaire.schema.json
+# Demo: examples/questionnaire/beispiel-automation.answers.json
 
 pnpm factory draft <slug>
   → CONTENT.yaml Entwurf aus BRIEF (Services, FAQ aus Einwänden, Hero aus USP)

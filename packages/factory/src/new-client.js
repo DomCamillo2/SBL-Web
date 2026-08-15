@@ -226,7 +226,8 @@ export default defineConfig({
     `# Client: ${slug}
 
 \`\`\`bash
-# 1) BRIEF.yaml ausfüllen (Gespräch / LEGAL-INTAKE / INTAKE-QUESTIONS)
+# 1) BRIEF.yaml ausfüllen (Pflichtfragen-Katalog / LEGAL-INTAKE / INTAKE-QUESTIONS)
+#    → docs/research/pflichtfragen-katalog.md
 # 2) Content-Entwurf:
 pnpm factory draft ${slug}
 # 3) CONTENT + tokens prüfen, Locks setzen

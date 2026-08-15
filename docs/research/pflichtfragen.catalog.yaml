@@ -1,0 +1,717 @@
+# Machine-readable Pflichtfragen-Katalog — SBL-Web
+# Human research: docs/research/pflichtfragen-katalog.md
+# Answer payload schema: docs/schemas/questionnaire.schema.json
+# Maps onto: docs/schemas/brief.schema.json
+# Disclaimer: Keine Rechtsberatung.
+
+version: "1.0.0"
+locale: de-DE
+default_archetype: service-local-b2b
+
+tiers:
+  P0:
+    label: Muss
+    blocks: [factory_draft, factory_check, factory_ship]
+    description: Ohne Antwort keine Site-Generierung / kein Docker-Ship
+  P1:
+    label: Soll
+    blocks: []
+    warns: true
+    description: Defaults möglich; Warnung wenn leer
+  P2:
+    label: Branchengate
+    blocks: [factory_ship]
+    description: Conditional required je Archetyp / Flag
+  P3:
+    label: Nice
+    blocks: []
+    description: Später / Relaunch — kein Generator-Blocker
+
+questions:
+  # ── P0 Identität & NAP ───────────────────────────────────────
+  - id: Q01
+    tier: P0
+    group: identity
+    prompt: "Firmenname / Marke, wie sie auf der Website stehen soll?"
+    type: string
+    brief_path: business.name
+    why: "Brand-first Hero, Titles, Schema"
+    sources: [nap, anti_slop, agency_intake]
+
+  - id: Q02
+    tier: P0
+    group: identity
+    prompt: "Rechtlicher Name (falls anders als Marke)?"
+    type: string
+    brief_path: business.legal_name
+    why: "Impressum §5 DDG"
+    sources: [ddg5, legal_intake]
+
+  - id: Q03
+    tier: P0
+    group: legal
+    prompt: "Rechtsform? (GmbH, UG, e.K., Einzelunternehmen, GbR, …)"
+    type: string
+    brief_path: legal.legal_form
+    why: "Impressum"
+    sources: [ddg5, legal_intake]
+
+  - id: Q04
+    tier: P0
+    group: legal
+    prompt: "Vertretungsberechtigte Person(en) mit Funktion?"
+    type: string
+    brief_path: legal.owner
+    why: "Impressum — Vertretung"
+    sources: [ddg5, legal_intake]
+
+  - id: Q05
+    tier: P0
+    group: identity
+    prompt: "Ladungsfähige Anschrift (Straße + Hausnummer — kein Postfach)?"
+    type: string
+    brief_path: contact.address
+    why: "DDG Impressum + LocalBusiness Schema"
+    sources: [ddg5, nap, schema_org]
+
+  - id: Q06
+    tier: P0
+    group: identity
+    prompt: "PLZ und Ort?"
+    type: string
+    brief_path: business.city
+    why: "NAP, Schema, Local SEO"
+    sources: [nap, local_seo]
+    note: "Ort in business.city; volle Adresse bleibt in contact.address"
+
+  - id: Q07
+    tier: P0
+    group: identity
+    prompt: "Region / Einzugsgebiet (z. B. Tübingen–Stuttgart)?"
+    type: string
+    brief_path: business.region
+    why: "Lokaler Claim + SEO"
+    sources: [local_seo, intake]
+
+  - id: Q08
+    tier: P0
+    group: identity
+    prompt: "Telefonnummer (öffentlich, mit Vorwahl)?"
+    type: string
+    brief_path: contact.phone
+    why: "NAP, CTA, Schema"
+    sources: [ddg5, nap]
+
+  - id: Q09
+    tier: P0
+    group: identity
+    prompt: "E-Mail (öffentlich)?"
+    type: string
+    format: email
+    brief_path: contact.email
+    why: "Impressum + Formular-Fallback"
+    sources: [ddg5]
+
+  - id: Q10
+    tier: P0
+    group: offer
+    prompt: "Branche (Freitext) und Archetyp-Kategorie?"
+    type: object
+    fields: [industry, archetype]
+    brief_paths:
+      - business.industry
+      - archetype
+    why: "Tokens, Legal-Zweig, Template"
+    sources: [legal_matrix, factory]
+
+  # ── P0 Ziel & Conversion ─────────────────────────────────────
+  - id: Q11
+    tier: P0
+    group: conversion
+    prompt: "Eine Primärhandlung für Besucher?"
+    type: enum
+    enum: [lead_form, phone_call, booking, visit, purchase]
+    brief_path: goal.primary
+    why: "Hero-CTA + Sticky CTA — Anti-Slop eine Handlung"
+    sources: [intake_q2, anti_slop, launch_checklist]
+
+  - id: Q12
+    tier: P0
+    group: conversion
+    prompt: "CTA-Label im Kundenwortlaut?"
+    type: string
+    brief_path: contact.cta_label
+    why: "Button-Copy"
+    sources: [launch_checklist, anti_slop]
+
+  - id: Q13
+    tier: P0
+    group: offer
+    prompt: "USP in einem Satz (selbst formuliert — AI darf kürzen, nicht erfinden)?"
+    type: text
+    brief_path: usp
+    min_length: 20
+    max_length: 280
+    why: "Hero — Anti-Slop AS01"
+    sources: [anti_slop, agency_intake]
+    anti_slop: true
+
+  - id: Q14
+    tier: P0
+    group: conversion
+    prompt: "Antwortzeit-Versprechen? (z. B. „innerhalb eines Werktags“)"
+    type: string
+    brief_path: contact.response_time_promise
+    why: "Trust + Launch-Gate"
+    sources: [launch_checklist]
+
+  # ── P0 Angebot ───────────────────────────────────────────────
+  - id: Q15
+    tier: P0
+    group: offer
+    prompt: "3–6 Leistungen (Titel + ein Satz)?"
+    type: list_object
+    fields: [name, summary]
+    brief_path: services
+    min_items: 3
+    max_items: 6
+    why: "Kerninhalt / Topics"
+    sources: [agency_intake, factory_draft]
+
+  - id: Q16
+    tier: P0
+    group: offer
+    prompt: "Primäre Zielgruppe (1–2 Sätze)?"
+    type: text
+    brief_path: audience.primary
+    why: "Ton, Ansprache, FAQ"
+    sources: [agency_intake]
+
+  - id: Q17
+    tier: P0
+    group: offer
+    prompt: "3–5 typische Einwände oder Fragen vor dem Kauf?"
+    type: list_string
+    brief_path: audience.objections
+    min_items: 3
+    max_items: 5
+    why: "FAQ-Draft (≥5 Einträge aus Einwänden + Defaults)"
+    sources: [launch_checklist, agency_intake]
+
+  # ── P0 Domain & Legal Gates ──────────────────────────────────
+  - id: Q18
+    tier: P0
+    group: hosting
+    prompt: "Produktionsdomain / Wunschdomain?"
+    type: string
+    brief_paths:
+      - hosting.production_domain
+      - hosting.site_url
+    why: "Canonical, OG, Schema, Traefik, robots"
+    sources: [factory]
+
+  - id: Q19
+    tier: P0
+    group: hosting
+    prompt: "Formular-Endpoint-URL — oder bewusst „Staging ohne Versand“?"
+    type: string
+    brief_path: hosting.form_endpoint
+    allow_staging_skip: true
+    why: "Funktionierendes Formular vs. Demo-/danke"
+    sources: [factory, launch_checklist]
+
+  - id: Q20
+    tier: P0
+    group: legal
+    prompt: "Impressum-Daten vollständig und freigegeben?"
+    type: boolean
+    brief_path: legal.impressum_ready
+    must_be_true_for_ship: true
+    why: "DDG Go-Live-Gate"
+    sources: [ddg5, legal_intake, launch_checklist]
+
+  - id: Q21
+    tier: P0
+    group: legal
+    prompt: "Datenschutz freigegeben / wer liefert den finalen Text?"
+    type: boolean
+    brief_path: legal.privacy_ready
+    must_be_true_for_ship: true
+    why: "DSGVO Art. 13 — Go-Live-Gate"
+    sources: [dsgvo, legal_intake, launch_checklist]
+
+  # ── P0 Assets ────────────────────────────────────────────────
+  - id: Q22
+    tier: P0
+    group: assets
+    prompt: "Logo-Datei hochladen?"
+    type: upload
+    brief_path: assets.logo
+    why: "Brand-Signal"
+    sources: [anti_slop, agency_intake]
+
+  - id: Q23
+    tier: P0
+    group: assets
+    prompt: "Mind. 1 echtes Foto — oder explizit „kein Foto, atmosphärischer Default“?"
+    type: upload_or_skip
+    brief_path: assets.photos
+    skip_writes: assets.missing
+    why: "Anti-Slop — kein Fake-Stock ohne Freigabe"
+    sources: [anti_slop]
+
+  # ── P1 Soll (Defaults) ───────────────────────────────────────
+  - id: Q30
+    tier: P1
+    group: trust
+    prompt: "Öffnungs- / Erreichbarkeitszeiten?"
+    type: string
+    brief_path: contact.hours
+    default: "nach Vereinbarung"
+    why: "Kontakt-Klarheit"
+    sources: [launch_checklist]
+
+  - id: Q31
+    tier: P1
+    group: trust
+    prompt: "Google-Maps-Link zum Standort?"
+    type: url
+    brief_path: contact.maps_url
+    default_strategy: generate_from_address
+    why: "Launch-Check Maps"
+    sources: [launch_checklist]
+
+  - id: Q32
+    tier: P1
+    group: offer
+    prompt: "Kurze Tagline (falls anders als USP)?"
+    type: string
+    brief_path: business.tagline
+    default_strategy: shorten_usp
+    why: "Header / Schema"
+    sources: [intake]
+
+  - id: Q33
+    tier: P1
+    group: conversion
+    prompt: "Sekundäres Ziel? (optional)"
+    type: string
+    brief_path: goal.secondary
+    default: null
+    why: "Zweite Handlung ohne Hero-Konkurrenz"
+    sources: [intake]
+
+  - id: Q34
+    tier: P1
+    group: conversion
+    prompt: "Erfolgsmetric für die Site?"
+    type: string
+    brief_path: goal.success_metric
+    default: "Anfragen pro Monat"
+    why: "Abnahme / Messung"
+    sources: [agency_intake]
+
+  - id: Q35
+    tier: P1
+    group: design
+    prompt: "3 Referenzen „so / nicht so“ (URLs oder Beschreibungen)?"
+    type: object
+    brief_paths:
+      - positioning.visual_references
+      - positioning.anti_references
+    default_strategy: archetype_defaults
+    why: "Design Lock ohne Vibe-Drift"
+    sources: [anti_slop, agency_intake]
+
+  - id: Q36
+    tier: P1
+    group: design
+    prompt: "Akzentfarbe (Hex) — oder „Factory wählt“?"
+    type: string_or_auto
+    brief_path: tokens.color.accent
+    default_strategy: hue_outside_200_290
+    why: "Anti-Purple-Bias"
+    sources: [anti_slop, design_tokens]
+
+  - id: Q37
+    tier: P1
+    group: legal
+    prompt: "Analytics? (none / plausible / matomo / google)"
+    type: enum
+    enum: [none, plausible, matomo, google]
+    brief_path: launch.analytics.provider
+    default: none
+    why: "TDDDG Consent-Scope"
+    sources: [tdddg, launch_checklist]
+
+  - id: Q38
+    tier: P1
+    group: conversion
+    prompt: "Sticky Mobile CTA ja/nein?"
+    type: boolean
+    brief_path: launch.sticky_mobile_cta
+    default: true
+    why: "Launch-Check"
+    sources: [launch_checklist]
+
+  - id: Q39
+    tier: P1
+    group: assets
+    prompt: "OG-Bild (1200×630) — oder aus Logo generieren?"
+    type: upload_or_auto
+    brief_path: assets.og_image
+    default_strategy: from_logo
+    why: "Social Share"
+    sources: [launch_checklist]
+
+  - id: Q40
+    tier: P1
+    group: legal
+    prompt: "Handelsregister + USt-IdNr. (oder „keine“)?"
+    type: object
+    brief_paths:
+      - legal.registry
+      - legal.vat_id
+    allow_empty: true
+    why: "Impressum wenn vorhanden"
+    sources: [ddg5]
+
+  - id: Q41
+    tier: P1
+    group: legal
+    prompt: "Mehr als 10 Beschäftigte? Teilnahme an VSB-Streitbeilegung?"
+    type: object
+    brief_paths:
+      - legal.vsbg_employee_count_over_10
+      - legal.vsbg_willing_to_participate
+      - legal.vsbg_statement
+    default_strategy: standard_non_participation_text
+    why: "VSBG Hinweispflicht"
+    sources: [vsbg, legal_intake]
+
+  - id: Q42
+    tier: P1
+    group: trust
+    prompt: "Social- / Google-Business-Profile-Links?"
+    type: list_string
+    brief_path: null
+    note: "Noch kein BRIEF-Feld — later sameAs / Content"
+    default: []
+    why: "Local SEO Trust"
+    sources: [local_seo]
+
+  - id: Q43
+    tier: P1
+    group: offer
+    prompt: "Servicegebiet Städte/PLZ (falls enger als Region)?"
+    type: string
+    brief_path: business.region
+    default_strategy: keep_region
+    why: "Local SEO Copy"
+    sources: [local_seo]
+
+  - id: Q44
+    tier: P1
+    group: content
+    prompt: "Sprachen der Site?"
+    type: list_string
+    default: [de]
+    why: "i18n Scope — Generator aktuell DE-only"
+    sources: [factory]
+
+  # ── P2 Handwerk ──────────────────────────────────────────────
+  - id: H01
+    tier: P2
+    group: gate_handwerk
+    when_archetype: handwerk-local
+    prompt: "Eingetragenes / zulassungspflichtiges Handwerk?"
+    type: boolean
+    brief_path: legal.supervisory_authority
+    why: "Handwerksrecht / Impressum"
+    sources: [legal_matrix]
+
+  - id: H02
+    tier: P2
+    group: gate_handwerk
+    when_archetype: handwerk-local
+    when_flag: health_craft
+    prompt: "Gesundheitshandwerk — Berufsbezeichnung, Staat, HWK, HwO-Link?"
+    type: object
+    brief_path: regulated_profession
+    why: "DDG §5 Abs. 1 Nr. 5 + Kammer"
+    sources: [ddg5, legal_matrix]
+    requires_lawyer: recommended
+
+  - id: H03
+    tier: P2
+    group: gate_handwerk
+    when_archetype: handwerk-local
+    prompt: "Spezielle Aufsicht (Schornsteinfeger, Büchsenmacher, …)?"
+    type: string
+    brief_path: legal.supervisory_authority
+    why: "Aufsichtsbehörde im Impressum"
+    sources: [legal_matrix]
+
+  # ── P2 Gastro ────────────────────────────────────────────────
+  - id: G01
+    tier: P2
+    group: gate_gastro
+    when_archetype: gastro-local
+    prompt: "Zuständige Erlaubnisbehörde?"
+    type: string
+    brief_path: legal.supervisory_authority
+    why: "GastG / Impressum"
+    sources: [legal_matrix]
+
+  - id: G02
+    tier: P2
+    group: gate_gastro
+    when_archetype: gastro-local
+    prompt: "Online-Speisekarte / Allergene vorgesehen?"
+    type: boolean
+    brief_path: null
+    why: "Kennzeichnungspflichten — Content-Scope"
+    sources: [legal_matrix]
+
+  - id: G03
+    tier: P2
+    group: gate_gastro
+    when_archetype: gastro-local
+    prompt: "Online-Reservierung oder Bestellung (Vertragsabschluss)?"
+    type: boolean
+    brief_paths:
+      - legal.bfsg_in_scope
+      - legal.bfsg_micro_enterprise_exemption
+    why: "BFSG / ggf. Widerruf"
+    sources: [bfsg, legal_matrix]
+    requires_lawyer: recommended
+
+  # ── P2 Praxis / Heilberufe ───────────────────────────────────
+  - id: M01
+    tier: P2
+    group: gate_praxis
+    when_archetype: praxis-local
+    prompt: "Berufsbezeichnung + Approbationsstaat?"
+    type: object
+    brief_paths:
+      - regulated_profession.enabled
+      - regulated_profession.profession_title
+      - regulated_profession.awarding_state
+    why: "DDG Berufsangaben"
+    sources: [ddg5]
+    requires_lawyer: recommended
+
+  - id: M02
+    tier: P2
+    group: gate_praxis
+    when_archetype: praxis-local
+    prompt: "Ärztekammer / Heilberufekammer (Name, Adresse, URL)?"
+    type: object
+    brief_paths:
+      - regulated_profession.chamber_name
+      - regulated_profession.chamber_address
+      - regulated_profession.chamber_url
+    why: "Kammerangaben Impressum"
+    sources: [ddg5, legal_intake]
+
+  - id: M03
+    tier: P2
+    group: gate_praxis
+    when_archetype: praxis-local
+    prompt: "KV-Zulassung — Name + URL falls zutreffend?"
+    type: object
+    brief_paths:
+      - regulated_profession.kv_name
+      - regulated_profession.kv_url
+    allow_empty: true
+    why: "KV-Angabe wenn vertragsärztlich"
+    sources: [legal_intake]
+
+  - id: M04
+    tier: P2
+    group: gate_praxis
+    when_archetype: praxis-local
+    prompt: "Links zu Berufsordnung / berufsrechtlichen Regeln?"
+    type: object
+    brief_paths:
+      - regulated_profession.professional_rules_label
+      - regulated_profession.professional_rules_url
+    why: "DDG Transparenz"
+    sources: [ddg5]
+
+  - id: M05
+    tier: P2
+    group: gate_praxis
+    when_archetype: praxis-local
+    prompt: "HWG-Freigabe der Werbetexte (Checkbox + Freigeber)?"
+    type: boolean
+    brief_path: regulated_profession.hwg_review_required
+    must_confirm_reviewed_for_ship: true
+    why: "Heilmittelwerbegesetz — Factory blockt Claims sonst"
+    sources: [hwg]
+    requires_lawyer: true
+
+  - id: M06
+    tier: P2
+    group: gate_praxis
+    when_archetype: praxis-local
+    prompt: "Online-Termin mit Gesundheitsdaten?"
+    type: boolean
+    brief_path: null
+    why: "Art. 9 DSGVO / AV-Verträge — Scope"
+    sources: [dsgvo, legal_matrix]
+    requires_lawyer: recommended
+
+  # ── P2 Retail / Shop ─────────────────────────────────────────
+  - id: R01
+    tier: P2
+    group: gate_retail
+    when_archetype: retail-local
+    prompt: "B2C Fernabsatz? AGB + Widerrufsbelehrung vorhanden?"
+    type: boolean
+    brief_path: legal.client_approved_texts
+    why: "BGB Fernabsatz"
+    sources: [legal_matrix]
+    requires_lawyer: true
+
+  - id: R02
+    tier: P2
+    group: gate_retail
+    when_archetype: retail-local
+    prompt: "Preise inkl. USt anzeigen?"
+    type: boolean
+    brief_path: null
+    why: "Preisangabenverordnung"
+    sources: [legal_matrix]
+
+  - id: R03
+    tier: P2
+    group: gate_retail
+    when_archetype: retail-local
+    prompt: "BFSG / Kleinstunternehmen-Ausnahme dokumentieren?"
+    type: object
+    brief_paths:
+      - legal.bfsg_in_scope
+      - legal.bfsg_micro_enterprise_exemption
+      - legal.accessibility_statement_url
+    why: "Barrierefreiheitsstärkungsgesetz"
+    sources: [bfsg]
+
+  - id: R04
+    tier: P2
+    group: gate_retail
+    when_archetype: retail-local
+    prompt: "Zahlung und Versand kurz beschreiben?"
+    type: text
+    brief_path: null
+    note: "Landet in CONTENT / Shop-Seite — noch kein festes BRIEF-Feld"
+    why: "Vorvertragliche Infos"
+    sources: [legal_matrix]
+
+  # ── P2 Erlaubnis / Kammer allgemein ──────────────────────────
+  - id: L01
+    tier: P2
+    group: gate_license
+    when_flag: licensed_trade
+    prompt: "Erlaubnisnorm + Aufsichtsbehörde?"
+    type: string
+    brief_path: legal.supervisory_authority
+    why: "§34c GewO u. a."
+    sources: [legal_matrix]
+    requires_lawyer: recommended
+
+  - id: L02
+    tier: P2
+    group: gate_license
+    when_flag: chamber_profession
+    prompt: "Kammer + Berufsrecht-Links?"
+    type: object
+    brief_path: regulated_profession
+    why: "DDG Berufsangaben"
+    sources: [ddg5]
+    requires_lawyer: recommended
+
+  # ── P3 Nice ──────────────────────────────────────────────────
+  - id: N01
+    tier: P3
+    group: later
+    prompt: "Blog / Ratgeber geplant?"
+    type: boolean
+    brief_path: null
+
+  - id: N02
+    tier: P3
+    group: later
+    prompt: "Mehrere Standorte?"
+    type: boolean
+    brief_path: null
+
+  - id: N03
+    tier: P3
+    group: later
+    prompt: "CRM-Integration?"
+    type: string
+    brief_path: null
+
+  - id: N04
+    tier: P3
+    group: later
+    prompt: "Buchungstool (Calendly o. ä.)?"
+    type: url
+    brief_path: null
+
+  - id: N05
+    tier: P3
+    group: later
+    prompt: "Echte Cases/Reviews mit Freigabe?"
+    type: object
+    brief_paths:
+      - launch.case_studies
+      - launch.reviews
+
+  - id: N06
+    tier: P3
+    group: later
+    prompt: "Teamfoto vorhanden?"
+    type: object
+    brief_path: launch.team_photo
+
+factory_draft_requires:
+  - Q01
+  - Q05
+  - Q06
+  - Q07
+  - Q08
+  - Q09
+  - Q10
+  - Q11
+  - Q12
+  - Q13
+  - Q15
+  - Q16
+  - Q17
+
+factory_ship_requires:
+  - all_P0
+  - relevant_P2_for_archetype_or_flags
+
+sources_index:
+  ddg5: "Digitale-Dienste-Gesetz §5 Impressum"
+  dsgvo: "DSGVO Art. 13 Informationspflichten"
+  tdddg: "TDDDG §25 Einwilligung Speicher/Zugriff"
+  vsbg: "VSBG Streitbeilegungshinweis"
+  bfsg: "Barrierefreiheitsstärkungsgesetz"
+  hwg: "Heilmittelwerbegesetz"
+  mstv18: "Medienstaatsvertrag §18"
+  nap: "Local SEO Name-Address-Phone Konsistenz"
+  anti_slop: "SBL anti-slop rules + brand-first"
+  launch_checklist: "templates/client-brief/INTAKE-QUESTIONS.md"
+  legal_intake: "templates/client-brief/LEGAL-INTAKE.md"
+  legal_matrix: "docs/research/legal-de-branchen.md"
+  agency_intake: "Agentur-Discovery-Fragebögen (YourWebTeam, Ybug, DE-Briefings)"
+  factory: "packages/factory + pipeline-audit"
+  schema_org: "schema.org LocalBusiness"
+  local_seo: "Local SEO / location page intake"
+  design_tokens: "docs/schemas/design-tokens.schema.json"
+  factory_draft: "factory draft CONTENT generator"
+  intake: "SBL client intake practice"

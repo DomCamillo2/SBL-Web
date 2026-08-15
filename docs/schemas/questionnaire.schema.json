@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sbl-web.local/schemas/questionnaire.schema.json",
+  "title": "SBL Pflichtfragen — Antwort-Payload",
+  "description": "Maschinenlesbare Antworten zum Katalog docs/research/pflichtfragen.catalog.yaml. Submit schreibt BRIEF.yaml + Uploads. Keine Rechtsberatung.",
+  "type": "object",
+  "required": ["version", "slug", "answers"],
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "type": "string",
+      "const": "1.0.0",
+      "description": "Muss zur catalog.version passen"
+    },
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "locale": {
+      "type": "string",
+      "default": "de-DE"
+    },
+    "archetype": {
+      "type": "string",
+      "enum": [
+        "service-local-b2b",
+        "handwerk-local",
+        "gastro-local",
+        "praxis-local",
+        "retail-local",
+        "custom"
+      ]
+    },
+    "flags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "health_craft",
+          "licensed_trade",
+          "chamber_profession",
+          "shop_or_checkout",
+          "newsletter",
+          "tracking_non_essential"
+        ]
+      },
+      "uniqueItems": true,
+      "description": "Aktiviert P2-Conditional-Fragen"
+    },
+    "answers": {
+      "type": "object",
+      "description": "Keys = Frage-IDs aus dem Katalog (Q01…, H01…, M01…, …)",
+      "minProperties": 1,
+      "additionalProperties": {
+        "oneOf": [
+          { "type": "string" },
+          { "type": "boolean" },
+          { "type": "number" },
+          { "type": "null" },
+          {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                { "type": "string" },
+                { "type": "object" }
+              ]
+            }
+          },
+          { "type": "object" }
+        ]
+      }
+    },
+    "uploads": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "logo": {
+          "type": "string",
+          "description": "Pfad oder Storage-Key relativ zu clients/<slug>/public"
+        },
+        "photos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["src", "alt"],
+            "properties": {
+              "src": { "type": "string" },
+              "alt": { "type": "string", "minLength": 3 }
+            }
+          }
+        },
+        "og_image": { "type": "string" },
+        "skip_hero_photo": {
+          "type": "boolean",
+          "description": "true = bewusst kein Foto → assets.missing setzen"
+        }
+      }
+    },
+    "meta": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "filled_at": { "type": "string", "format": "date-time" },
+        "filled_by": { "type": "string" },
+        "source": {
+          "type": "string",
+          "enum": ["web_form", "call_notes", "import", "demo"]
+        },
+        "lawyer_review_needed": { "type": "boolean" }
+      }
+    }
+  }
+}

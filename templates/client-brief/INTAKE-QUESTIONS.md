@@ -1,5 +1,9 @@
 # Intake-Fragen — Launch-Checklist (20 Punkte)
 
+> Master-Katalog (P0–P3, ein Fragebogen → Factory):  
+> [`docs/research/pflichtfragen-katalog.md`](../../docs/research/pflichtfragen-katalog.md)  
+> Dieses Dokument ist die **Launch-Detailtiefe** (Checkliste #1–20), keine zweite Wahrheitsquelle.
+
 Diese Fragen gehören in jedes Kundengespräch **vor** Design Lock.  
 Antworten landen in `BRIEF.yaml` → Abschnitt `launch` (+ `contact` / `assets` / `legal`).
 

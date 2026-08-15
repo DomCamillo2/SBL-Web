@@ -1,0 +1,63 @@
+{
+  "version": "1.0.0",
+  "slug": "beispiel-automation",
+  "locale": "de-DE",
+  "archetype": "service-local-b2b",
+  "flags": [],
+  "answers": {
+    "Q01": "Beispiel Automation",
+    "Q02": "Beispiel Automation UG (haftungsbeschränkt)",
+    "Q03": "UG (haftungsbeschränkt)",
+    "Q04": "Max Mustermann",
+    "Q05": "Musterstraße 1, 72070 Tübingen",
+    "Q06": "Tübingen",
+    "Q07": "Tübingen–Stuttgart",
+    "Q08": "+49 7071 123456",
+    "Q09": "hallo@example.com",
+    "Q10": {
+      "industry": "KI- und Prozessautomatisierung",
+      "archetype": "service-local-b2b"
+    },
+    "Q11": "lead_form",
+    "Q12": "Prozess kostenlos prüfen lassen",
+    "Q13": "Wir automatisieren wiederkehrende Abläufe in Verwaltung, HR und Reporting — passend zu bestehenden Systemen und mit klarer menschlicher Kontrolle.",
+    "Q14": "Wir melden uns innerhalb eines Werktags.",
+    "Q15": [
+      {
+        "name": "HR & Recruiting",
+        "summary": "Bewerbungs- und Kandidatenabläufe strukturiert automatisieren."
+      },
+      {
+        "name": "Verwaltung & CRM",
+        "summary": "Anfragen und Kundendaten zwischen Systemen verlässlich weitergeben."
+      },
+      {
+        "name": "Reporting & Daten",
+        "summary": "Daten zusammenführen, prüfen und für Entscheidungen aufbereiten."
+      }
+    ],
+    "Q16": "Geschäftsführer und Betriebsleiter in KMU (10–200 MA)",
+    "Q17": [
+      "Zu teuer oder zu komplex für uns",
+      "Unsere Daten dürfen nicht unkontrolliert verarbeitet werden",
+      "Wir haben schon Tools, die niemand nutzt"
+    ],
+    "Q18": "beispiel-automation.example",
+    "Q19": "STAGING_SKIP",
+    "Q20": true,
+    "Q21": true,
+    "Q22": "/og-default.svg",
+    "Q23": "SKIP_GRADIENT",
+    "Q30": "Mo–Fr 09–17 Uhr",
+    "Q37": "none",
+    "Q38": true
+  },
+  "uploads": {
+    "logo": "/og-default.svg",
+    "skip_hero_photo": true
+  },
+  "meta": {
+    "source": "demo",
+    "lawyer_review_needed": false
+  }
+}
