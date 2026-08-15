@@ -1,0 +1,41 @@
+{
+  "slug": "beispiel-automation-tuebingen",
+  "archetype": "service-local-b2b",
+  "mood": "Ruhig, editorial, lokal verankert — wie ein klares Gespräch, kein Startup-Pitch.",
+  "color": {
+    "background": "#F3EFE7",
+    "foreground": "#1A1C1A",
+    "accent": "#C45C26",
+    "accent_hue": 22,
+    "muted": "#5C584F",
+    "surface": "#E7E1D6",
+    "selection": "#C45C26"
+  },
+  "typography": {
+    "display": "Fraunces",
+    "body": "Source Serif 4",
+    "mono": "IBM Plex Mono",
+    "forbidden": ["Inter", "Roboto", "Arial", "Poppins", "Open Sans"]
+  },
+  "layout": {
+    "hero_budget": ["brand", "headline", "support", "cta_group", "dominant_visual"],
+    "max_cards_per_section": 3,
+    "prefer_asymmetric_splits": true,
+    "full_bleed_hero": true
+  },
+  "motion": {
+    "hero_entrance": "none",
+    "intentional_motions": 3,
+    "respect_reduced_motion": true
+  },
+  "anti_slop": {
+    "rules": [
+      "no_inter",
+      "accent_hue_outside_200_290",
+      "no_hero_cards",
+      "no_fade_up_everywhere",
+      "no_saas_filler_copy",
+      "real_or_honest_imagery"
+    ]
+  }
+}

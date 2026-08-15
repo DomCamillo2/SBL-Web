@@ -1,0 +1,24 @@
+# Template: replace SLUG and DOMAIN before use
+services:
+  site:
+    image: registry.example.com/sbl-web/SLUG:latest
+    # or build: { context: ., dockerfile: Dockerfile.static }
+    restart: unless-stopped
+    networks:
+      - sbl-proxy
+    mem_limit: 64m
+    cpus: 0.25
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.SLUG.rule=Host(`DOMAIN`)
+      - traefik.http.routers.SLUG.entrypoints=websecure
+      - traefik.http.routers.SLUG.tls.certresolver=letsencrypt
+      - traefik.http.services.SLUG.loadbalancer.server.port=80
+      # optional staging:
+      # - traefik.http.routers.SLUG-staging.rule=Host(`SLUG.staging.example.com`)
+      # - traefik.http.routers.SLUG-staging.entrypoints=websecure
+      # - traefik.http.routers.SLUG-staging.tls.certresolver=letsencrypt
+
+networks:
+  sbl-proxy:
+    external: true

@@ -1,0 +1,203 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sbl-web.local/schemas/brief.schema.json",
+  "title": "KMU Website Brief",
+  "type": "object",
+  "required": [
+    "slug",
+    "business",
+    "goal",
+    "audience",
+    "usp",
+    "archetype",
+    "pages",
+    "contact",
+    "legal"
+  ],
+  "properties": {
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "URL-safe client id, e.g. baeckerei-mueller"
+    },
+    "business": {
+      "type": "object",
+      "required": ["name", "industry", "city", "region"],
+      "properties": {
+        "name": { "type": "string", "minLength": 2 },
+        "legal_name": { "type": "string" },
+        "industry": { "type": "string" },
+        "city": { "type": "string" },
+        "region": { "type": "string" },
+        "founded_year": { "type": "integer", "minimum": 1800 },
+        "employees": { "type": "string" },
+        "tagline": { "type": "string", "maxLength": 120 }
+      }
+    },
+    "goal": {
+      "type": "object",
+      "required": ["primary"],
+      "properties": {
+        "primary": {
+          "type": "string",
+          "enum": ["lead_form", "phone_call", "booking", "visit", "purchase"]
+        },
+        "secondary": { "type": "string" },
+        "success_metric": { "type": "string" }
+      }
+    },
+    "audience": {
+      "type": "object",
+      "required": ["primary"],
+      "properties": {
+        "primary": { "type": "string" },
+        "secondary": { "type": "string" },
+        "objections": {
+          "type": "array",
+          "items": { "type": "string" },
+          "maxItems": 5
+        }
+      }
+    },
+    "usp": {
+      "type": "string",
+      "minLength": 20,
+      "maxLength": 280,
+      "description": "One human-written sentence. AI may shorten, not invent."
+    },
+    "archetype": {
+      "type": "string",
+      "enum": [
+        "service-local-b2b",
+        "handwerk-local",
+        "gastro-local",
+        "praxis-local",
+        "retail-local",
+        "custom"
+      ]
+    },
+    "positioning": {
+      "type": "object",
+      "properties": {
+        "tone": {
+          "type": "array",
+          "items": { "type": "string" },
+          "maxItems": 4
+        },
+        "do_not_sound_like": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "competitors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name", "url"],
+            "properties": {
+              "name": { "type": "string" },
+              "url": { "type": "string", "format": "uri" },
+              "notes": { "type": "string" }
+            }
+          },
+          "maxItems": 5
+        },
+        "visual_references": {
+          "type": "array",
+          "items": { "type": "string" },
+          "maxItems": 5
+        },
+        "anti_references": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Sites/styles we must not resemble"
+        }
+      }
+    },
+    "pages": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "purpose"],
+        "properties": {
+          "id": { "type": "string" },
+          "title": { "type": "string" },
+          "path": { "type": "string" },
+          "purpose": { "type": "string" },
+          "sections": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    },
+    "services": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "summary"],
+        "properties": {
+          "name": { "type": "string" },
+          "summary": { "type": "string" },
+          "proof": { "type": "string" }
+        }
+      }
+    },
+    "contact": {
+      "type": "object",
+      "required": ["email", "phone"],
+      "properties": {
+        "email": { "type": "string", "format": "email" },
+        "phone": { "type": "string" },
+        "address": { "type": "string" },
+        "hours": { "type": "string" },
+        "maps_url": { "type": "string", "format": "uri" },
+        "cta_label": { "type": "string" }
+      }
+    },
+    "assets": {
+      "type": "object",
+      "properties": {
+        "logo": { "type": "string" },
+        "photos": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "missing": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Assets still needed before content.lock"
+        }
+      }
+    },
+    "legal": {
+      "type": "object",
+      "required": ["impressum_ready", "privacy_ready"],
+      "properties": {
+        "impressum_ready": { "type": "boolean" },
+        "privacy_ready": { "type": "boolean" },
+        "owner": { "type": "string" },
+        "vat_id": { "type": "string" },
+        "registry": { "type": "string" }
+      }
+    },
+    "hosting": {
+      "type": "object",
+      "properties": {
+        "staging_subdomain": { "type": "string" },
+        "production_domain": { "type": "string" },
+        "need_forms": { "type": "boolean", "default": true },
+        "need_cms": { "type": "boolean", "default": false }
+      }
+    },
+    "locks": {
+      "type": "object",
+      "properties": {
+        "design_locked_at": { "type": "string", "format": "date-time" },
+        "content_locked_at": { "type": "string", "format": "date-time" },
+        "approved_by": { "type": "string" }
+      }
+    }
+  },
+  "additionalProperties": false
+}

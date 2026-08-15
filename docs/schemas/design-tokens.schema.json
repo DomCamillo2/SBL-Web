@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sbl-web.local/schemas/design-tokens.schema.json",
+  "title": "KMU Design Tokens",
+  "type": "object",
+  "required": ["slug", "archetype", "color", "typography", "layout", "motion", "anti_slop"],
+  "properties": {
+    "slug": { "type": "string" },
+    "archetype": { "type": "string" },
+    "mood": { "type": "string" },
+    "color": {
+      "type": "object",
+      "required": ["background", "foreground", "accent", "accent_hue"],
+      "properties": {
+        "background": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+        "foreground": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+        "accent": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+        "accent_hue": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 360,
+          "description": "Must NOT fall in 200-290 (AI default band) for primary accent"
+        },
+        "muted": { "type": "string" },
+        "surface": { "type": "string" },
+        "selection": { "type": "string" }
+      }
+    },
+    "typography": {
+      "type": "object",
+      "required": ["display", "body"],
+      "properties": {
+        "display": { "type": "string" },
+        "body": { "type": "string" },
+        "mono": { "type": "string" },
+        "forbidden": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": ["Inter", "Roboto", "Arial", "Poppins", "Open Sans"]
+        }
+      }
+    },
+    "layout": {
+      "type": "object",
+      "properties": {
+        "hero_budget": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["brand", "headline", "support", "cta_group", "dominant_visual"]
+          },
+          "maxItems": 5
+        },
+        "max_cards_per_section": { "type": "integer", "maximum": 4 },
+        "prefer_asymmetric_splits": { "type": "boolean", "default": true },
+        "full_bleed_hero": { "type": "boolean", "default": true }
+      }
+    },
+    "motion": {
+      "type": "object",
+      "properties": {
+        "hero_entrance": { "type": "string", "enum": ["none", "subtle"] },
+        "intentional_motions": {
+          "type": "integer",
+          "minimum": 2,
+          "maximum": 5,
+          "description": "Ship 2-3 purposeful motions, not fade-up everywhere"
+        },
+        "respect_reduced_motion": { "type": "boolean", "default": true }
+      }
+    },
+    "anti_slop": {
+      "type": "object",
+      "required": ["rules"],
+      "properties": {
+        "rules": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

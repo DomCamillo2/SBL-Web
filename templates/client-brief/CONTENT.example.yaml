@@ -1,0 +1,67 @@
+# Beispiel Content Pack (Auszug) — service-local-b2b
+# Schema: docs/schemas/content.schema.json
+
+slug: beispiel-automation-tuebingen
+locale: de-DE
+brand_voice_notes: >
+  Konkret, ruhig, lokal. Keine KI-Hype-Floskeln. Lieber ein echter Ablauf
+  als drei abstrakte Benefits.
+
+forbidden_phrases:
+  - Unlock the power
+  - Seamless
+  - Cutting-edge
+  - Next-level
+  - Revolutionize
+  - Ganzheitliche Lösungen
+  - Mit Leidenschaft und Innovation
+
+seo_defaults:
+  site_name: Beispiel Automation
+  title_suffix: " | Beispiel Automation"
+  default_description: >
+    Prozessautomatisierung für KMU in der Region Tübingen–Stuttgart —
+    mit klarer menschlicher Kontrolle.
+
+pages:
+  - id: home
+    path: /
+    title: Automation mit Menschenverstand
+    meta_description: >
+      Weniger manuelle Arbeit in Verwaltung, HR und Reporting.
+      Kostenlosen Prozess-Check anfragen.
+    sections:
+      - id: hero
+        job: Marke + eine Aussage + eine Handlung
+        headline: Automation mit Menschenverstand.
+        support: >
+          Weniger manuelle Arbeit. Mehr Zeit fürs Kerngeschäft.
+        cta_label: Prozess kostenlos prüfen lassen
+        cta_href: /kontakt
+      - id: pain_points
+        job: Zeigen wo im Alltag Zeit verloren geht
+        headline: Wo im Alltag Zeit verloren geht
+        support: Wir beginnen nicht mit einem Tool, sondern mit einem konkreten Ablauf.
+        items:
+          - title: Daten werden mehrfach übertragen
+            body: Informationen aus E-Mails und Listen landen manuell in anderen Systemen.
+          - title: Reports entstehen per Hand
+            body: Dieselben Daten werden regelmäßig exportiert, geprüft und verteilt.
+          - title: Wissen ist schwer zugänglich
+            body: Abläufe und Antworten liegen verteilt in Köpfen, Ordnern und Chats.
+      - id: method
+        job: Phasen mit klarem Ergebnis erklären
+        headline: Von der ersten Prüfung bis zur geregelten Übergabe.
+        items:
+          - title: Prozess prüfen
+            body: Realen Ablauf mit Systemen, Daten und Ausnahmen betrachten.
+            meta: Entscheidung, ob sich ein Pilot lohnt
+          - title: Pilot testen
+            body: Abgegrenzter Teil mit typischen Fällen und echten Ausnahmen.
+            meta: Messbare Ergebnisse und bekannte Grenzen
+      - id: closing_cta
+        job: Eine nächste Handlung
+        headline: Welcher Prozess kostet Ihr Team regelmäßig Zeit?
+        support: Im kostenlosen Check ordnen wir Nutzen, Aufwand und Risiken ein.
+        cta_label: Prozess kostenlos prüfen lassen
+        cta_href: /kontakt

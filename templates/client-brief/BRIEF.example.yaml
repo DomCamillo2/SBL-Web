@@ -1,0 +1,111 @@
+# Beispiel-Brief: lokaler B2B-Dienstleister (anonymisiert, MSB-ähnliche Struktur)
+# Schema: docs/schemas/brief.schema.json
+
+slug: beispiel-automation-tuebingen
+
+business:
+  name: Beispiel Automation
+  legal_name: Beispiel Automation UG
+  industry: KI- und Prozessautomatisierung
+  city: Tübingen
+  region: Tübingen–Stuttgart
+  tagline: Automation mit Menschenverstand.
+
+goal:
+  primary: lead_form
+  secondary: phone_call
+  success_metric: Qualifizierte Anfragen für kostenlosen Prozess-Check
+
+audience:
+  primary: Geschäftsführer und Betriebsleiter in KMU (10–200 MA)
+  secondary: HR- und Verwaltungsverantwortliche
+  objections:
+    - "Zu teuer / zu komplex für uns"
+    - "Unsere Daten dürfen nicht in die Cloud"
+    - "Wir haben schon Tools, die niemand nutzt"
+
+usp: >
+  Wir automatisieren wiederkehrende Abläufe in Verwaltung, HR und Reporting —
+  passend zu bestehenden Systemen und mit klarer menschlicher Kontrolle.
+
+archetype: service-local-b2b
+
+positioning:
+  tone: [klar, ruhig, praxisnah, lokal verankert]
+  do_not_sound_like:
+    - generisches SaaS-Startup
+    - Hype-KI-Agentur
+    - Unternehmensberatung mit Buzzword-Salat
+  competitors:
+    - name: Beispiel Konkurrent A
+      url: https://example.com
+      notes: Zu technisch, keine lokale Verankerung
+  visual_references:
+    - ruhige Editorial-Layouts mit starker Typo
+    - echte Arbeitskontexte statt Stock-Teams
+  anti_references:
+    - purple gradient SaaS landing pages
+    - drei Feature-Cards mit Lucide-Icons im Hero
+
+pages:
+  - id: home
+    title: Start
+    path: /
+    purpose: Vertrauen + eine klare nächste Handlung
+    sections:
+      - hero
+      - local_context
+      - trust_process
+      - experience
+      - pain_points
+      - topics
+      - examples
+      - method
+      - team
+      - closing_cta
+  - id: method
+    title: Vorgehen
+    path: /vorgehen
+    purpose: Phasen und Kontrolle vertiefen
+  - id: contact
+    title: Kontakt
+    path: /kontakt
+    purpose: Anfrage absenden
+
+services:
+  - name: HR & Recruiting
+    summary: Bewerbungs- und Kandidatenabläufe strukturiert automatisieren.
+  - name: Verwaltung & CRM
+    summary: Anfragen und Kundendaten zwischen Systemen verlässlich weitergeben.
+  - name: Reporting & Daten
+    summary: Daten zusammenführen, prüfen und für Entscheidungen aufbereiten.
+
+contact:
+  email: hallo@example.com
+  phone: "+49 7071 000000"
+  address: Musterstraße 1, 72070 Tübingen
+  hours: "Mo–Fr 09–17 Uhr"
+  cta_label: Prozess kostenlos prüfen lassen
+
+assets:
+  logo: ./assets/logo.svg
+  photos:
+    - ./assets/hero-workspace.jpg
+  missing:
+    - Teamfotos (optional; sonst Erfahrungskontext nutzen)
+
+legal:
+  impressum_ready: false
+  privacy_ready: false
+  owner: Max Mustermann
+
+hosting:
+  staging_subdomain: beispiel-automation.staging.sbl-web.local
+  production_domain: example.com
+  need_forms: true
+  need_cms: false
+
+locks:
+  design_locked_at: null
+  content_locked_at: null
+  approved_by: null
